@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "851520586478",
+    "firebase_url": "https://sunland-2b6ba.firebaseio.com",
+    "project_id": "sunland-2b6ba",
+    "storage_bucket": "sunland-2b6ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851520586478:android:f05d6583782068514be9ff",
+        "android_client_info": {
+          "package_name": "com.sunland"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851520586478-nqnjal5id167d3j46r6sfckhu5t9mgir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sunland",
+            "certificate_hash": "4b000755fdd830a62260083f000e24d45b625ffd"
+          }
+        },
+        {
+          "client_id": "851520586478-jmtrp5rpl7n44ccv4edjio6vnio314di.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sunland",
+            "certificate_hash": "da168c4e3ee3d1bec4dc64b09712925e8c1d2951"
+          }
+        },
+        {
+          "client_id": "851520586478-avb3mr0hbo5aeghubg8olaavgg7r7orq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc1rpQ8Qwtrb59pmc2I2_MA24W5kn0TgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851520586478-avb3mr0hbo5aeghubg8olaavgg7r7orq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
