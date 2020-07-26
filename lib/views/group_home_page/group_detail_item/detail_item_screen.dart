@@ -161,6 +161,10 @@ class _DetailItemScreenState extends State<DetailItemScreen> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
+                  title: Text(
+                    "${args.nameApartment}",
+                    style: styleTextTitleInAppWhite,
+                  ),
                   backgroundColor: colorAppbar,
                   pinned: true,
                   expandedHeight: setHeightSize(size: 250.0),
@@ -522,7 +526,7 @@ class infrastructure_widget extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: setWidthSize(size: 5)),
             child: Text(
-              "Cơ sở vật chất",
+              "Tiện ích",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: setFontSize(size: 18),

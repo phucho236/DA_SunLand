@@ -141,6 +141,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     ];
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorAppbar,
+        title: Text(
+          "Xin chào ${Provider.of<GlobalData>(context).userName} ",
+          style: styleTextTitleInAppWhite,
+        ),
+      ),
       // resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Stack(
@@ -159,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           null
                       ? Padding(
                           padding:
-                              EdgeInsets.only(top: setHeightSize(size: 40)),
+                              EdgeInsets.only(top: setHeightSize(size: 20)),
                           child: Material(
                             borderRadius: BorderRadius.circular(100),
                             elevation: 8,
@@ -172,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )
                       : Padding(
                           padding:
-                              EdgeInsets.only(top: setHeightSize(size: 40)),
+                              EdgeInsets.only(top: setHeightSize(size: 20)),
                           child: Material(
                             borderRadius: BorderRadius.circular(100),
                             elevation: 8,
@@ -185,12 +192,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                         ),
-                  Padding(
-                    padding: EdgeInsets.only(top: setHeightSize(size: 10)),
-                    child: Text(
-                      Provider.of<GlobalData>(context).userName,
-                      style: styleTextTitleInAppBarBlack,
-                    ),
+                  SizedBox(
+                    height: setHeightSize(size: 20),
                   ),
                   Container(
                     decoration: BoxDecoration(
