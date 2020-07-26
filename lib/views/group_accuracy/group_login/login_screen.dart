@@ -12,6 +12,7 @@ import 'package:flutter_core/views/group_save_data/save_data_screen.dart';
 import 'package:flutter_core/widgets/button_normal.dart';
 import 'package:flutter_core/widgets/text_field_boder.dart';
 import 'package:flutter_core/helpers/constant.dart';
+import 'package:flutter_core/views/group_introduce/introduce_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "LoginScreen";
@@ -42,9 +43,18 @@ class _LoginScreenState extends State<LoginScreen>
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
     controller.forward();
     controller.addListener(() {});
-    onLogin();
+    onViewIntroduce();
     // TODO: implement initState
     super.initState();
+  }
+
+  onViewIntroduce() async {
+    if (await getIntroduce == true) {
+      print(getIntroduce);
+      Navigator.pushReplacementNamed(context, IntroduceScreen.id);
+    } else {
+      onLogin();
+    }
   }
 
   onLogin() async {

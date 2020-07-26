@@ -28,6 +28,7 @@ import 'package:flutter_core/views/group_accuracy/group_forgot_password/forgot_p
 import 'package:flutter_core/views/group_accuracy/group_login/login_screen.dart';
 import 'package:flutter_core/views/group_accuracy/group_register/register_screen.dart';
 import 'package:flutter_core/views/group_images_brain/show_images_screen.dart';
+import 'package:flutter_core/views/group_introduce/introduce_screen.dart';
 import 'package:flutter_core/views/group_message/message_screen.dart';
 import 'package:flutter_core/views/group_not_connection/not_connection_screen.dart';
 import 'package:flutter_core/views/group_notication/group_detail_notifycation/detail_notifycation_screen.dart';
@@ -52,7 +53,8 @@ import 'package:flutter_core/view_system/group_appointment/group_appoiment_all_s
 import 'package:flutter_core/view_system/group_appointment/group_appoitment_all_system_done/appointment_all_system_done_screen.dart';
 //const initialRoute = 'splash_screen';
 String initialRoute = LoginScreen.id;
-//String initialRoute = PostProductScreen.id;
+
+//String initialRoute = IntroduceScreen.id;
 //String initialRoute = PreviewProductScreen.id;
 //String initialRoute = NoticatonScreen.id;
 //String initialRoute = EditDetailProductScreen.id;
@@ -121,5 +123,7 @@ var routes = {
   DetailAndEditAppointmentScreen.id: (context) =>
       DetailAndEditAppointmentScreen(),
   AppointmentAllSystemScreen.id: (context) => AppointmentAllSystemScreen(),
-  AppointmentAllSystemDoneScreen.id: (context)=> AppointmentAllSystemDoneScreen(),
+  AppointmentAllSystemDoneScreen.id: (context) =>
+      AppointmentAllSystemDoneScreen(),
+  IntroduceScreen.id: (context) => IntroduceScreen(),
 };

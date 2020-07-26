@@ -62,9 +62,9 @@ class _CreateNameGroupAttendanceMangamentScreenState
             ),
           ),
           PositionedDirectional(
-            start: 70,
-            bottom: 610,
-            width: 400,
+            start: setWidthSize(size: 70),
+            bottom: setHeightSize(size: 645),
+            width: setWidthSize(size: 400),
             child: Padding(
               padding: EdgeInsets.all(setWidthSize(size: 15)),
               child: TextFieldBorder(

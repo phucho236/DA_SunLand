@@ -90,50 +90,46 @@ class _ProductCensorshipScreenState extends State<ProductCensorshipScreen> {
               child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.orange)),
             )
-          : SingleChildScrollView(
-              //padding: EdgeInsets.symmetric(horizontal: setWidthSize(size: 10)),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: setHeightSize(size: 10),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text(
-                        "Sản phẩm chờ duyệt",
-                        style: styleTextTitleInBodyBlack,
-                      ),
-                      Text(
-                        "(Nhấn giữ để chỉnh sửa sản phẩm)",
-                        style: styleTextHintBlack,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: setHeightSize(size: 10),
-                  ),
-                  SizedBox(
-                    height: setHeightSize(
-                        size: getScreenHeight() - getBottomBarHeight() * 6),
-                    child: SmartRefresher(
-                      //reverse: true,
-                      //enablePullDown: tr,
-                      controller: _refreshController,
-                      enablePullUp: false,
-                      child: listIDProductNeedApproval.length < 1
-                          ? Center(
-                              child: Text(
-                                "Không có dữ liệu",
-                                style: styleTextContentBlack,
-                              ),
-                            )
-                          : buildGridView(),
-                      header: WaterDropHeader(),
-                      onRefresh: onRefresh,
+          : Column(
+              children: <Widget>[
+                SizedBox(
+                  height: setHeightSize(size: 10),
+                ),
+                Column(
+                  children: <Widget>[
+                    Text(
+                      "Sản phẩm chờ duyệt",
+                      style: styleTextTitleInBodyBlack,
                     ),
+                    Text(
+                      "(Nhấn giữ để chỉnh sửa sản phẩm)",
+                      style: styleTextHintBlack,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: setHeightSize(size: 10),
+                ),
+                Expanded(
+                  //height: setHeightSize(size: getScreenHeight()),
+                  child: SmartRefresher(
+                    //reverse: true,
+                    //enablePullDown: tr,
+                    controller: _refreshController,
+                    enablePullUp: false,
+                    child: listIDProductNeedApproval.length < 1
+                        ? Center(
+                            child: Text(
+                              "Không có dữ liệu",
+                              style: styleTextContentBlack,
+                            ),
+                          )
+                        : buildGridView(),
+                    header: WaterDropHeader(),
+                    onRefresh: onRefresh,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
     );
   }

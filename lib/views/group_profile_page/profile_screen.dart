@@ -5,6 +5,7 @@ import 'package:flutter_core/helpers/utils.dart';
 import 'package:flutter_core/providers/global_provider.dart';
 import 'package:flutter_core/view_system/group_product/post_product_screen.dart';
 import 'package:flutter_core/views/group_accuracy/group_login/login_screen.dart';
+import 'package:flutter_core/views/group_introduce/introduce_screen.dart';
 import 'package:flutter_core/views/group_profile_page/dialog_send_request.dart';
 import 'package:flutter_core/views/group_profile_page/group_product_posted/product_posted_screen.dart';
 import 'package:flutter_core/widgets/button_normal.dart';
@@ -81,9 +82,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onTap: () {
           Navigator.pushNamed(context, ProductPostedScreen.id);
         },
-      )
+      ),
+      SpeedDialChild(
+        child: Icon(MdiIcons.accountMultipleCheck),
+        backgroundColor: colorAppbar,
+        label: 'Sản phẩm đã đăng'.toUpperCase(),
+        labelStyle: styleTextContentBlack,
+        onTap: () {
+          Navigator.pushNamed(context, ProductPostedScreen.id);
+        },
+      ),
+      SpeedDialChild(
+        child: Icon(MdiIcons.domain),
+        backgroundColor: colorAppbar,
+        label: 'Giới thiệu'.toUpperCase(),
+        labelStyle: styleTextContentBlack,
+        onTap: () {
+          Navigator.pushNamed(context, IntroduceScreen.id);
+        },
+      ),
     ];
     final List<SpeedDialChild> listfloattingbuttonnonparner = [
+      SpeedDialChild(
+        child: Icon(Icons.domain),
+        backgroundColor: colorAppbar,
+        label: 'Giới thiệu'.toUpperCase(),
+        labelStyle: styleTextContentBlack,
+        onTap: () {
+          Navigator.pushNamed(context, IntroduceScreen.id);
+        },
+      ),
       SpeedDialChild(
         child: Icon(MdiIcons.logout),
         backgroundColor: colorAppbar,
@@ -109,6 +137,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return DialogSendRequest();
             },
           );
+        },
+      ),
+      SpeedDialChild(
+        child: Icon(Icons.domain),
+        backgroundColor: colorAppbar,
+        label: 'Giới thiệu'.toUpperCase(),
+        labelStyle: styleTextContentBlack,
+        onTap: () {
+          Navigator.pushNamed(context, IntroduceScreen.id);
         },
       ),
     ];

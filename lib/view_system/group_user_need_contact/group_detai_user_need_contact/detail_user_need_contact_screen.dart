@@ -10,6 +10,7 @@ import 'package:flutter_core/views/group_home_page/group_detail_item/detail_item
 import 'package:flutter_core/views/group_like_item/like_item_controller.dart';
 import 'package:flutter_core/widgets/button_item_like.dart';
 import 'package:flutter_core/widgets/button_normal.dart';
+import 'package:flutter_core/widgets/scrolling_text.dart';
 import 'package:flutter_core/widgets/search_textfield_border.dart';
 import 'package:flutter_core/widgets/text_field_boder.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -160,69 +161,60 @@ class _DetailUserNeedContactState extends State<DetailUserNeedContact> {
             ),
             body: Column(
               children: <Widget>[
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: args.customerProfileModel.linkImages == null
-                            ? CircleAvatar(
-                                radius: 60,
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.all(setWidthSize(size: 10)),
-                                  child: Image.asset(
-                                      "assets/images/library_image.png"),
-                                ),
-                              )
-                            : Container(
-                                margin: EdgeInsets.all(setWidthSize(size: 10)),
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundImage: NetworkImage(
-                                      args.customerProfileModel.linkImages),
-                                ),
-                              ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                Row(
+                  children: <Widget>[
+                    args.customerProfileModel.linkImages == null
+                        ? CircleAvatar(
+                            radius: 60,
+                            child: Container(
+                              margin: EdgeInsets.all(setWidthSize(size: 10)),
+                              child: Image.asset(
+                                  "assets/images/library_image.png"),
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.all(setWidthSize(size: 10)),
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage(
+                                  args.customerProfileModel.linkImages),
+                            ),
+                          ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          args.customerProfileModel.user_name,
+                          style: styleTextTitleInBodyBlack,
+                        ),
+                        SizedBox(
+                          height: setHeightSize(size: 5),
+                        ),
+                        Text(
+                          args.customerProfileModel.email,
+                          style: styleTextTitleInBodyBlack,
+                        ),
+                        SizedBox(
+                          height: setHeightSize(size: 5),
+                        ),
+                        Text(
+                          args.customerProfileModel.phone_number,
+                          style: styleTextTitleInBodyBlack,
+                        ),
+                        SizedBox(
+                          height: setHeightSize(size: 10),
+                        ),
+                        Row(
                           children: <Widget>[
                             Text(
-                              args.customerProfileModel.user_name,
-                              style: styleTextTitleInBodyBlack,
+                              "gửi yêu cầu lúc: ${getDateShow(args.productNeedSuportModel.post_at)}",
+                              style: styleTextContentBlack,
                             ),
-                            SizedBox(
-                              height: setHeightSize(size: 5),
-                            ),
-                            Text(
-                              args.customerProfileModel.email,
-                              style: styleTextTitleInBodyBlack,
-                            ),
-                            SizedBox(
-                              height: setHeightSize(size: 5),
-                            ),
-                            Text(
-                              args.customerProfileModel.phone_number,
-                              style: styleTextTitleInBodyBlack,
-                            ),
-                            SizedBox(
-                              height: setHeightSize(size: 10),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  "gửi yêu cầu lúc: ${getDateShow(args.productNeedSuportModel.post_at)}",
-                                  style: styleTextContentBlack,
-                                ),
-                              ],
-                            )
                           ],
-                        ),
-                      )
-                    ],
-                  ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
                 args.is_taked_screen
                     ? Padding(
@@ -672,6 +664,7 @@ class _DetailUserNeedContactState extends State<DetailUserNeedContact> {
             context,
             DetailItemScreen.id,
             arguments: DetailItemScreen(
+              is_detai_item_screen: true,
               view_only: true,
               is_preview_item_screen: false,
               itemLiked: false,
@@ -861,10 +854,15 @@ class _buildAlertDialogPickUserSystemState
                                       listCustommerProfile[index].email,
                                       style: styleTextContentBlack,
                                     ),
-                                    Text(
-                                      listCustommerProfile[index].user_name,
-                                      style: styleTextContentBlack,
-                                    )
+                                    Container(
+                                      height: setHeightSize(size: 20),
+                                      child: ScrollingText(
+                                        text: Text(
+                                          listCustommerProfile[index].user_name,
+                                          style: styleTextContentBlack,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -880,14 +878,14 @@ class _buildAlertDialogPickUserSystemState
               },
             ),
           ),
-          Container(
-            height: setHeightSize(size: 140),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("assets/images/background_dialog_1.png"),
-            )),
-          ),
+//          Container(
+//            height: setHeightSize(size: 130),
+//            decoration: BoxDecoration(
+//                image: DecorationImage(
+//              fit: BoxFit.fill,
+//              image: AssetImage("assets/images/background_dialog_1.png"),
+//            )),
+//          ),
         ],
       ),
       actions: <Widget>[

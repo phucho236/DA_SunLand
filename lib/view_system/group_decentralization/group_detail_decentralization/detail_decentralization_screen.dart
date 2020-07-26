@@ -425,7 +425,7 @@ class _DetailDecentralizationScreenState
                     SpeedDialChild(
                       child: Icon(MdiIcons.accountMultipleRemove),
                       backgroundColor: colorAppbar,
-                      label: 'Xóa người dùng khỏi nhóm'.toUpperCase(),
+                      label: 'Thu hồi người dùng khỏi nhóm'.toUpperCase(),
                       labelStyle: styleTextContentBlack,
                       onTap: () {
                         Navigator.pushNamed(

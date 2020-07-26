@@ -21,6 +21,17 @@ getListPermistionCustommerSystem() async {
   return prefs.getStringList('listPermistionCustommerSystem');
 }
 
+setIntroduce({bool viewed_introduce}) async {
+  print(viewed_introduce);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool('viewed_introduce', viewed_introduce);
+}
+
+getIntroduce() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('viewed_introduce');
+}
+
 setType({int type}) async {
   print(type);
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -245,7 +256,6 @@ List<PermistionModel> listPermisstionModelInSystem = [
   PermistionModel(
       title: "Quản lí lịch hẹn-tất cã (Chỉ xem)",
       id: "appointment_management_all_system"),
-
 ];
 
 List<TypeFloorModel> listTypeloorModel = [
@@ -288,7 +298,7 @@ List<ItemsIcon> dataItemsIcons = [
   ItemsIcon(id_icon: 0, name_icon: "Internet"),
   ItemsIcon(id_icon: 1, name_icon: "Wifi"),
   ItemsIcon(id_icon: 2, name_icon: "Đỗ xe"),
-  ItemsIcon(id_icon: 3, name_icon: "Bão vệ"),
+  ItemsIcon(id_icon: 3, name_icon: "Bảo vệ"),
   ItemsIcon(id_icon: 4, name_icon: "Thẻ ra vào"),
   ItemsIcon(id_icon: 5, name_icon: "Máy phát điện"),
   ItemsIcon(id_icon: 6, name_icon: "Nhân viên trì"),
@@ -313,7 +323,7 @@ List<IconData> itemsIcon = [
   MdiIcons.earth, //Internet 0
   MdiIcons.wifi, // wifi 1
   MdiIcons.parking, // đỗ xe 2
-  MdiIcons.security, // bão vệ 3
+  MdiIcons.security, // bảo vệ 3
   MdiIcons.wallet, // thẻ ra vào tòa nhà 4
   MdiIcons.batteryCharging, //  máy phát điện dự phòng 5
   Icons.gavel, // nhân viên bảo trì 6
