@@ -32,6 +32,7 @@ class _LikeItemScreenState extends State<LikeItemScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: colorAppbar,
         title: Text("Sản phẩm yêu thích"),
         bottom: TabBar(

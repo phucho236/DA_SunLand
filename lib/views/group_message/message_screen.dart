@@ -77,6 +77,13 @@ class _MessageScreenState extends State<MessageScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorAppbar,
+        title: Text(
+          "Nhắn tin với SunLand",
+          style: styleTextTitleInAppWhite,
+        ),
+      ),
       resizeToAvoidBottomInset: true,
       body: type == 1
           ? Center(

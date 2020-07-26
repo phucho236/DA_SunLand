@@ -104,15 +104,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ];
     final List<SpeedDialChild> listfloattingbuttonnonparner = [
       SpeedDialChild(
-        child: Icon(Icons.domain),
-        backgroundColor: colorAppbar,
-        label: 'Giới thiệu'.toUpperCase(),
-        labelStyle: styleTextContentBlack,
-        onTap: () {
-          Navigator.pushNamed(context, IntroduceScreen.id);
-        },
-      ),
-      SpeedDialChild(
         child: Icon(MdiIcons.logout),
         backgroundColor: colorAppbar,
         label: 'Đăng xuất'.toUpperCase(),
