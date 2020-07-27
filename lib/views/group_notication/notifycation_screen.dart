@@ -37,6 +37,7 @@ class _NotifycatonScreenState extends State<NotifycatonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         leading: BackButton(),
         title: Text("Thông báo"),
         centerTitle: true,

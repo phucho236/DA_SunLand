@@ -234,6 +234,7 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
     return Scaffold(
       backgroundColor: colorBackGroundGrey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         actions: <Widget>[
           DropdownButtonHideUnderline(

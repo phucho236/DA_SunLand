@@ -78,6 +78,7 @@ class _MessageScreenState extends State<MessageScreen>
     super.build(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: colorAppbar,
         title: Text(
           "Nhắn tin với SunLand",

@@ -142,6 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: colorAppbar,
         title: Text(
           "Xin chào ${Provider.of<GlobalData>(context).userName} ",

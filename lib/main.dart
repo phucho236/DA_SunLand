@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   MyConnectivity _connectivity = MyConnectivity.instance;
   Map _source = {ConnectivityResult.none: false};
-  bool connection = false;
+  bool connection = true;
   bool returnCheckConnection() {
     switch (_source.keys.toList()[0]) {
       case ConnectivityResult.none:
