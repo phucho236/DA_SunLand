@@ -344,7 +344,7 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
                         Row(
                           children: <Widget>[
                             Text(
-                              "Theo giỏi vị trí: ",
+                              "Theo dõi vị trí: ",
                               style: styleTextContentBlack,
                             ),
                             FlutterSwitch(
