@@ -24,7 +24,7 @@ class _GridViewShowProductEditScreenState
   double cardHeight = getScreenHeight() / 2.6;
   bool itemLiked = false;
   String document_id_custommer;
-
+  bool isLoading = false;
   bool onfind = false;
 
   List<dynamic> list_item_like = [];
@@ -63,6 +63,13 @@ class _GridViewShowProductEditScreenState
     if (_listIDProductTmp.length > 0) {
       setState(() {
         listProduct = _listIDProductTmp;
+        onfind = false;
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        listProduct = [];
+        isLoading = false;
         onfind = false;
       });
     }
@@ -106,7 +113,11 @@ class _GridViewShowProductEditScreenState
 
   @override
   void initState() {
+    setState(() {
+      isLoading = true;
+    });
     getListProduct();
+
     // TODO: implement initState
     super.initState();
   }
@@ -116,55 +127,61 @@ class _GridViewShowProductEditScreenState
     GridViewShowProductEditScreen args =
         ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: colorAppbar,
         title: Text("Chọn sản phẩm cần chỉnh sửa"),
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(setWidthSize(size: 10)),
-            child: Search_TextField_Border(
-              borderRadius: 5,
-              hintText: "Nhập id hoặc tên sản phẩm",
-              sizeBorder: 2,
-              colorBorDer: Colors.white,
-              onChanged: (value) {
-                getProductFind(name_or_document_id_product: value);
-                if (value != "") {
-                  onfind = true;
-                } else {
-                  onfind = false;
-                }
-                setState(() {});
-              },
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.orange)),
+            )
+          : Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(setWidthSize(size: 10)),
+                  child: Search_TextField_Border(
+                    borderRadius: 5,
+                    hintText: "Nhập id hoặc tên sản phẩm",
+                    sizeBorder: 2,
+                    colorBorDer: Colors.white,
+                    onChanged: (value) {
+                      getProductFind(name_or_document_id_product: value);
+                      if (value != "") {
+                        onfind = true;
+                      } else {
+                        onfind = false;
+                      }
+                      setState(() {});
+                    },
+                  ),
+                ),
+                Expanded(
+                    child: SmartRefresher(
+                  controller: _refreshController,
+                  enablePullUp: true,
+                  child: onfind
+                      ? listProductFind.length > 0
+                          ? buildGridViewFind()
+                          : Center(
+                              child: Text(
+                              "Không có dữ liệu",
+                              style: styleTextContentBlack,
+                            ))
+                      : listProduct.length > 0
+                          ? buildGridView(args)
+                          : Center(
+                              child: Text(
+                              "Không tìm thấy sản phẩm",
+                              style: styleTextContentBlack,
+                            )),
+                  header: WaterDropHeader(),
+                  onRefresh: onRefresh,
+                  onLoading: onLoading,
+                )),
+              ],
             ),
-          ),
-          Expanded(
-              child: SmartRefresher(
-            controller: _refreshController,
-            enablePullUp: true,
-            child: onfind
-                ? listProductFind.length > 0
-                    ? buildGridViewFind()
-                    : Center(
-                        child: Text(
-                        "Không có dữ liệu",
-                        style: styleTextContentBlack,
-                      ))
-                : listProduct.length > 0
-                    ? buildGridView(args)
-                    : Center(
-                        child: Text(
-                        "Không tìm thấy sản phẩm",
-                        style: styleTextContentBlack,
-                      )),
-            header: WaterDropHeader(),
-            onRefresh: onRefresh,
-            onLoading: onLoading,
-          )),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorAppbar,
         onPressed: () async {

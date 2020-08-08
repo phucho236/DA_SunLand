@@ -339,14 +339,11 @@ class _DetailInAppointmentDoneScreenState
                         horizontal: setWidthSize(size: 5),
                       ),
                       child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(
-                              "Xem hình",
-                              style: styleTextContentBlack,
-                            ),
-                          ],
+                        child: Center(
+                          child: Text(
+                            "Xem hình",
+                            style: styleTextContentBlack,
+                          ),
                         ),
                       ),
                     ),
@@ -364,14 +361,20 @@ class _DetailInAppointmentDoneScreenState
                                   BorderRadius.all(Radius.circular(20.0))),
                           contentPadding:
                               EdgeInsets.only(top: setHeightSize(size: 20)),
-                          title: Text("Thông tin thêm"),
+                          title: Text(
+                            "Thông tin thêm",
+                            style: styleTextTitleInAppBarBlack,
+                          ),
                           content: Container(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.all(20.0),
+                                  padding: EdgeInsets.all(20.0),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                           "Tạo bởi: ${customerProfileModelIsUserPost == null ? "" : customerProfileModelIsUserPost.user_name}"),
@@ -382,7 +385,9 @@ class _DetailInAppointmentDoneScreenState
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: setHeightSize(size: 10)),
+                                    vertical: setHeightSize(size: 10),
+                                    horizontal: setWidthSize(size: 10),
+                                  ),
                                   child: Material(
                                       elevation: 2,
                                       borderRadius: BorderRadius.circular(15),
@@ -426,14 +431,9 @@ class _DetailInAppointmentDoneScreenState
                         horizontal: setWidthSize(size: 5),
                       ),
                       child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(
-                              "Thông tin thêm",
-                              style: styleTextContentBlack,
-                            ),
-                          ],
+                        child: Text(
+                          "Thông tin thêm",
+                          style: styleTextContentBlack,
                         ),
                       ),
                     ),

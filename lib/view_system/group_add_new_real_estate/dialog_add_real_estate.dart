@@ -78,12 +78,12 @@ class DialogAddRealEstateScreen extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               StreamBuilder(
-                                stream: addRealEstareController.longitudeStream,
+                                stream: addRealEstareController.latitudeStream,
                                 builder: (context, snapshot) => TextFieldBorder(
                                   onChanged: (value) {
-                                    longitude = value;
+                                    latitude = value;
                                   },
-                                  hintText: "kinh độ",
+                                  hintText: "vĩ độ",
                                   typeInputIsNumber: true,
                                   colorTextWhite: false,
                                 ),
@@ -92,12 +92,12 @@ class DialogAddRealEstateScreen extends StatelessWidget {
                                 height: setHeightSize(size: 10),
                               ),
                               StreamBuilder(
-                                stream: addRealEstareController.latitudeStream,
+                                stream: addRealEstareController.longitudeStream,
                                 builder: (context, snapshot) => TextFieldBorder(
                                   onChanged: (value) {
-                                    latitude = value;
+                                    longitude = value;
                                   },
-                                  hintText: "vĩ độ",
+                                  hintText: "kinh độ",
                                   typeInputIsNumber: true,
                                   colorTextWhite: false,
                                 ),

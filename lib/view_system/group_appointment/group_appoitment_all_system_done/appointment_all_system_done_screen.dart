@@ -50,6 +50,7 @@ class _AppointmentAllSystemDoneScreenState
       });
     } else {
       setState(() {
+        listAppointmentModel = [];
         isLoading = false;
       });
     }

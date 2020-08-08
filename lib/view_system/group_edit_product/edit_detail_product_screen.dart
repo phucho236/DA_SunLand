@@ -825,7 +825,11 @@ class _EditDetailProductScreenState extends State<EditDetailProductScreen> {
                             document_id_product:
                                 args1.productModel.ducument_id_product,
                             document_id_custommer: document_id_custommer,
-                            nameApartment: name_apartment,
+                            nameApartment: name_apartment == null
+                                ? null
+                                : name_apartment.trim() == ""
+                                    ? null
+                                    : name_apartment.trim(),
                             price: price,
                             realEstate: realEstate,
                             typeFloor: typeFloor,

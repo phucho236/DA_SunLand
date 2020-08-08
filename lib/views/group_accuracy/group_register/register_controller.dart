@@ -8,20 +8,8 @@ import 'package:flutter_core/helpers/validators.dart';
 
 class RegisterController {
   StreamController _errController = new StreamController();
-  StreamController _emailController = new StreamController();
-  StreamController _passwordController = new StreamController();
-  StreamController _firstNameController = new StreamController();
-  StreamController _lastNameController = new StreamController();
-  StreamController _confirmPassController = new StreamController();
-  StreamController _phoneController = new StreamController();
 
   Stream get errStream => _errController.stream;
-  Stream get emailStream => _emailController.stream;
-  Stream get passwordStream => _passwordController.stream;
-  Stream get firsNameStream => _firstNameController.stream;
-  Stream get lastNameStream => _lastNameController.stream;
-  Stream get confirmPassStream => _confirmPassController.stream;
-  Stream get phoneStream => _phoneController.stream;
 
   Validators validators = new Validators();
 
@@ -44,46 +32,53 @@ class RegisterController {
   }) async {
     int countError = 0;
     _errController.sink.add('Ok');
-    _emailController.sink.add('Ok');
-    _passwordController.sink.add('Ok');
-    _firstNameController.sink.add('Ok');
-    _lastNameController.sink.add('Ok');
-    _confirmPassController.sink.add('Ok');
 
     if (!validators.isValidEmail(email)) {
       _errController.sink.addError('vui lòng kiểm tra Email.');
       countError++;
     }
 
-    if (!validators.isPhoneNumber(phoneNumber)) {
-      _errController.sink.addError('Vui lòng kiểm tra Số điện thoại.');
-      countError++;
-    }
-    if (!validators.checkLengPhongNumber(phoneNumber)) {
-      _errController.sink.addError('Số điện thoại phải có 10 kí tự');
-      countError++;
-    }
-    if (!validators.isValidPass(password)) {
-      _errController.sink.addError('Vui lòng kiểm tra mật khẩu.');
-      countError++;
-    }
-    if (!validators.checkLengPass(password)) {
-      _errController.sink.addError('Mật khẩu có độ dài từ 6 đến 15 kí tự.');
-      countError++;
-    }
-    if (password != confirmPass) {
-      _errController.sink.addError("Mật khẩu không trùng khớp.");
-      countError++;
-    }
-
     if (!validators.checkName(firstName)) {
       _errController.sink.addError('Vui lòng kiểm tra Tên.');
       countError++;
+    } else {
+      if (!validators.checkName(lastName)) {
+        _errController.sink.addError('vui lòng kiểm tra Họ.');
+        countError++;
+      } else {
+        if (phoneNumber == null || phoneNumber == '') {
+          _errController.sink.addError('Vui lòng kiểm tra Số điện thoại.');
+          countError++;
+        } else {
+          if (!validators.isPhoneNumber(phoneNumber)) {
+            _errController.sink.addError('Vui lòng kiểm tra Số điện thoại.');
+            countError++;
+          } else {
+            if (!validators.checkLengPhongNumber(phoneNumber)) {
+              _errController.sink.addError('Số điện thoại phải có 10 kí tự');
+              countError++;
+            } else {
+              if (!validators.isValidPass(password)) {
+                _errController.sink.addError('Mật khẩu không được để trống.');
+                countError++;
+              } else {
+                if (!validators.checkLengPass(password)) {
+                  _errController.sink
+                      .addError('Mật khẩu có độ dài từ 6 đến 15 kí tự.');
+                  countError++;
+                } else {
+                  if (password != confirmPass) {
+                    _errController.sink.addError("Mật khẩu không trùng khớp.");
+                    countError++;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    if (!validators.checkName(lastName)) {
-      _errController.sink.addError('vui lòng kiểm tra Họ.');
-      countError++;
-    }
+
     print(countError);
     if (countError == 0) {
       var api = HttpApi();

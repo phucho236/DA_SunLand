@@ -33,14 +33,10 @@ class _TakedUserNeedContactAllScreenState
         await takedUserNeedContactAllController
             .onLoadGetListProductNeedSuportModelContactBy(
                 taked: taked, contacted: contacted);
+    print(ListProductNeedSuportModelNotYetContactByTmp.length);
     if (ListProductNeedSuportModelNotYetContactByTmp.length > 0) {
-      if (mounted) {
-        setState(() {
-          ListProductNeedSuportModelNotYetContactBy =
-              ListProductNeedSuportModelNotYetContactByTmp;
-          getListDataCustommerProfile();
-        });
-      }
+      await getListDataCustommerProfile(
+          ListProductNeedSuportModelNotYetContactByTmp);
     } else {
       setState(() {
         ListProductNeedSuportModelNotYetContactBy = [];
@@ -50,11 +46,12 @@ class _TakedUserNeedContactAllScreenState
     }
   }
 
-  getListDataCustommerProfile() async {
+  getListDataCustommerProfile(
+      ListProductNeedSuportModelNotYetContactByTmp) async {
     var customerProfile;
     List<CustomerProfileModel>
         ListProfileCustommerNeedSuportModelNotYetContactBytmp = [];
-    for (var item in ListProductNeedSuportModelNotYetContactBy) {
+    for (var item in ListProductNeedSuportModelNotYetContactByTmp) {
       customerProfile =
           await takedUserNeedContactAllController.onLoadGetDataProifile(
               document_id_custommer: item.document_id_custommer_need_contact);
@@ -63,13 +60,17 @@ class _TakedUserNeedContactAllScreenState
             CustomerProfileModel.fromJson(customerProfile));
       }
     }
-
+    print(ListProfileCustommerNeedSuportModelNotYetContactBytmp.length);
     if (ListProfileCustommerNeedSuportModelNotYetContactBytmp.length > 0) {
-      setState(() {
-        isLoading = false;
-        ListProfileCustommerNeedSuportModelNotYetContactBy =
-            ListProfileCustommerNeedSuportModelNotYetContactBytmp;
-      });
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+          ListProfileCustommerNeedSuportModelNotYetContactBy =
+              ListProfileCustommerNeedSuportModelNotYetContactBytmp;
+          ListProductNeedSuportModelNotYetContactBy =
+              ListProductNeedSuportModelNotYetContactByTmp;
+        });
+      }
     } else {
       setState(() {
         ListProductNeedSuportModelNotYetContactBy = [];
@@ -86,7 +87,6 @@ class _TakedUserNeedContactAllScreenState
     setState(() {
       isLoading = true;
     });
-
     getListProductNeedSuportModelNotYetContactBy();
   }
 
@@ -192,7 +192,6 @@ class _TakedUserNeedContactAllScreenState
             )).then((value) async {
           if (value == true) {
             await getListProductNeedSuportModelNotYetContactBy();
-            await getListDataCustommerProfile();
           }
         });
       },

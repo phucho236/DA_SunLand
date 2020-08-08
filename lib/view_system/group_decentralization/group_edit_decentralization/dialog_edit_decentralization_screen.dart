@@ -20,7 +20,6 @@ class DialogEditDecentralization extends StatefulWidget {
 class _DialogEditDecentralizationState
     extends State<DialogEditDecentralization> {
   String nameGroup;
-
   EditDecentralizationController editDecentralizationController =
       EditDecentralizationController();
   List<PermistionModel> listPermisstionModelInSystemUse =
@@ -61,6 +60,9 @@ class _DialogEditDecentralizationState
   void initState() {
     // TODO: implement initState
     super.initState();
+    for (var item in listPermisstionModelInSystemUse) {
+      item.isSelected = false;
+    }
     getdocumentIdCustommer__();
 
     onGetListlistPermisstionModelInSystemUse();

@@ -34,12 +34,17 @@ class _RequestToBecomeAPartnerOfTheUserScreenState
             .onLoadGetListRequestToBecomeAPartnerUser(
                 document_id_custommer: _docuemnt_id_custommer);
     if (listRequestToBecomeAPartnerModelTmp.length > 0) {
+      List<CustomerProfileModel> listCustommerProfileTmp = [];
+
+      listCustommerProfileTmp = await requestToBecomeAPartnerUserController
+          .onLoadGetListProFileCustommer(listRequestToBecomeAPartnerModelTmp);
       if (mounted) {
-        isLoading = false;
-        listCustommerProfile = await requestToBecomeAPartnerUserController
-            .onLoadGetListProFileCustommer(listRequestToBecomeAPartnerModelTmp);
-        listRequestToBecomeAPartnerModel = listRequestToBecomeAPartnerModelTmp;
-        setState(() {});
+        setState(() {
+          isLoading = false;
+          listRequestToBecomeAPartnerModel =
+              listRequestToBecomeAPartnerModelTmp;
+          listCustommerProfile = listCustommerProfileTmp;
+        });
       }
     } else {
       isLoading = false;

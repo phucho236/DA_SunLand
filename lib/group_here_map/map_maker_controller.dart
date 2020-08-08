@@ -133,7 +133,7 @@ class MapMarkerController {
 
   // stream vị trí hiện tại và cập nhật camera
   Future<GeoCoordinates> StreamCenteredMapMarkers(
-      GeoCoordinates geoCoordinates) {
+      GeoCoordinates geoCoordinates, bool stream_location) {
     //GeoCoordinates geoCoordinates = _createRandomGeoCoordinatesInViewport();
     // Centered on location.
 
@@ -142,11 +142,12 @@ class MapMarkerController {
 
     // Centered on location. Shown above the photo marker to indicate the location.
     // cập nhật độ cao
-
-    //_hereMapController.camera.internalupdateAltitude(500);
-    //cập nhật vị trí focus...
-//    _hereMapController.camera.internalupdateCoordinates(
-//        GeoCoordinates(geoCoordinates.latitude, geoCoordinates.longitude));
+    if (stream_location == true) {
+      _hereMapController.camera.internalupdateAltitude(500);
+      //cập nhật vị trí focus...
+      _hereMapController.camera.internalupdateCoordinates(
+          GeoCoordinates(geoCoordinates.latitude, geoCoordinates.longitude));
+    }
   }
 
   // lấy vị trí hiện tại và cập nhật camera

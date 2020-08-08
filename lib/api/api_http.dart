@@ -78,7 +78,8 @@ class HttpApi {
     bool _result = false;
     String documentID = null;
     Map<String, dynamic> data = Map<String, dynamic>();
-    data["pass"] = password;
+    data["pass"] =
+        generateSignature(dataIn: password, signature: "SunLandGroup");
     data["last_change_password"] = last_change_password;
 
     // tìm id user bằng email sau đó gửi id user để tìm feild Đăng nhập cập nhật mật khẩu
@@ -382,6 +383,7 @@ class HttpApi {
         .get()
         .then((value) async {
       if (value != null) {
+        print(value.data);
         GroupDecentralization = GroupDecentralizationModel.fromJson(value.data);
         GroupDecentralization.document_id_group = value.documentID;
       }
@@ -1179,8 +1181,8 @@ class HttpApi {
         .where("contacted", isEqualTo: contacted)
         .where("taked_by", isEqualTo: contact_by)
         .getDocuments()
-        .then((value) async {
-      if (value != null) {
+        .then((value) {
+      if (value.documents.length > 0) {
         value.documents.forEach((element) {
           productNeedSuportModel =
               ProductNeedSuportModel.fromJson(element.data);
@@ -2087,7 +2089,7 @@ class HttpApi {
         .where("checked_in", isEqualTo: checked_in)
         .getDocuments()
         .then((value) {
-      if (value != null) {
+      if (value.documents.length > 0) {
         value.documents.forEach((element) {
           appointmentModel = AppointmentModel.fromJson(element.data);
           appointmentModel.document_id_appointment = element.documentID;
@@ -2107,7 +2109,7 @@ class HttpApi {
         .where("post_by", isEqualTo: document_id_custommer)
         .getDocuments()
         .then((value) {
-      if (value != null) {
+      if (value.documents.length > 0) {
         value.documents.forEach((element) {
           appointmentModel = AppointmentModel.fromJson(element.data);
           appointmentModel.document_id_appointment = element.documentID;

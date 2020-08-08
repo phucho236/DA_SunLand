@@ -35,8 +35,7 @@ class _DetailDecentralizationScreenState
   GroupDecentralizationModel groupDecentralizationModel;
   TabController _tabController;
   String document_id_custommer;
-  List<PermistionModel> listPermisstionModelInSystemUse =
-      listPermisstionModelInSystem;
+  List<PermistionModel> listPermisstionModelInSystemUse = [];
   onGetDocumentIdCustommer() async {
     String document_id_custommertmp;
     document_id_custommertmp = await getDocumentIdCustommer();
@@ -48,12 +47,16 @@ class _DetailDecentralizationScreenState
   }
 
   onGetListlistPermisstionModelInSystemUse(groupDecentralizationModel) {
+    listPermisstionModelInSystemUse = [];
     if (groupDecentralizationModel.list_permission.length > 0) {
       for (var item in groupDecentralizationModel.list_permission) {
-        for (var item1 in listPermisstionModelInSystemUse) {
+        for (var item1 in listPermisstionModelInSystem) {
           if (item == item1.id) {
             item1.isSelected = true;
+            listPermisstionModelInSystemUse.add(item1);
             break;
+          } else {
+            item1.isSelected = false;
           }
         }
       }
@@ -80,8 +83,8 @@ class _DetailDecentralizationScreenState
 
   getDetailGroupPermisstion(
       GroupDecentralizationModel groupDecentralizationModel_) async {
-    GroupDecentralizationModel group_permistionTmp =
-        GroupDecentralizationModel();
+    GroupDecentralizationModel group_permistionTmp;
+    print(groupDecentralizationModel_);
     group_permistionTmp =
         await decentralizationController.onGetGroupDecentralization(
             document_id_group_decentralizatio:
@@ -466,9 +469,10 @@ class _DetailDecentralizationScreenState
           padding: EdgeInsets.all(setWidthSize(size: 2)),
           child: Material(
             elevation: 2,
-            color: listPermisstionModelInSystemUse[index].isSelected == true
-                ? Colors.white
-                : Colors.white24,
+            color: Colors.white,
+//            listPermisstionModelInSystemUse[index].isSelected == true
+//                ?
+//                : Colors.white24,
             borderRadius: BorderRadius.circular(10),
             child: Container(
               height: setHeightSize(size: 50),

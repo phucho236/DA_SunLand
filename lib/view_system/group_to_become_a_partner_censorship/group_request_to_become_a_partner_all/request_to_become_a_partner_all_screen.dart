@@ -32,11 +32,20 @@ class _RequestToBecomeAPartnerAllScreenState
         await requestToBecomeAPartnerAllController
             .onLoadGetListRequestToBecomeAPartnerUser();
     if (listRequestToBecomeAPartnerModelTmp.length > 0) {
-      isLoading = false;
-      listCustommerProfile = await requestToBecomeAPartnerAllController
-          .onLoadGetListProFileCustommer(listRequestToBecomeAPartnerModelTmp);
-      listRequestToBecomeAPartnerModel = listRequestToBecomeAPartnerModelTmp;
-      setState(() {});
+      if (mounted) {
+        List<CustomerProfileModel> listCustommerProfileTmp = [];
+        listCustommerProfileTmp = await requestToBecomeAPartnerAllController
+            .onLoadGetListProFileCustommer(listRequestToBecomeAPartnerModelTmp);
+
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+            listCustommerProfileTmp = listCustommerProfile;
+            listRequestToBecomeAPartnerModel =
+                listRequestToBecomeAPartnerModelTmp;
+          });
+        }
+      }
     } else {
       isLoading = false;
       listCustommerProfile = [];

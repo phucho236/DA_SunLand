@@ -49,25 +49,21 @@ class BuildItemProduct extends StatelessWidget {
               width: setWidthSize(size: 10),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  productModel == null
-                      ? ""
-                      : "Tên căn hộ: ${productModel.name_apartment}",
+                  productModel == null ? "" : "${productModel.name_apartment}",
                   style: styleTextContentBlack,
                 ),
                 Text(
                   productModel == null
                       ? ""
-                      : "Địa điếm: ${productModel.district}",
+                      : "${PriceFortmatMoney(value: double.parse(productModel.price.toString()), symbol: true)}",
                   style: styleTextContentBlack,
                 ),
                 Text(
-                  productModel == null
-                      ? ""
-                      : "Giá bán: ${PriceFortmatMoney(value: double.parse(productModel.price.toString()), symbol: true)}",
+                  productModel == null ? "" : "${productModel.district}",
                   style: styleTextContentBlack,
                 ),
               ],

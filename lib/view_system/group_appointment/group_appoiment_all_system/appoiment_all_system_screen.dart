@@ -28,16 +28,16 @@ class _AppointmentAllSystemScreenState
 
   ApointmentAllSystemController apointmentAllSystemController =
       ApointmentAllSystemController();
-  GetDataCustommerProfile(AppointmentModel appointmentModel) async {
-    CustomerProfileModel customerProfileModelCustomerTmp;
-    customerProfileModelCustomerTmp =
-        await apointmentAllSystemController.onGetCustomerProifile(
-            document_id_custommer:
-                appointmentModel.document_id_custommer_out_the_system);
-    if (customerProfileModelCustomerTmp != null) {
-      return customerProfileModelCustomerTmp;
-    }
-  }
+//  GetDataCustommerProfile(AppointmentModel appointmentModel) async {
+//    CustomerProfileModel customerProfileModelCustomerTmp;
+//    customerProfileModelCustomerTmp =
+//        await apointmentAllSystemController.onGetCustomerProifile(
+//            document_id_custommer:
+//                appointmentModel.document_id_custommer_out_the_system);
+//    if (customerProfileModelCustomerTmp != null) {
+//      return customerProfileModelCustomerTmp;
+//    }
+//  }
 
   onGetListAppointmentUserHandingAllSystem() async {
     List<AppointmentModel> listAppointmentModelTmp = [];
@@ -47,11 +47,14 @@ class _AppointmentAllSystemScreenState
     );
     if (listAppointmentModelTmp.length > 0) {
       setState(() {
-        isLoading = false;
         listAppointmentModel = listAppointmentModelTmp;
+        isLoading = false;
       });
     } else {
-      isLoading = false;
+      setState(() {
+        listAppointmentModel = [];
+        isLoading = false;
+      });
     }
   }
 
@@ -113,7 +116,7 @@ class _AppointmentAllSystemScreenState
                         )
                       : Center(
                           child: Text(
-                            "Không có lịch hẹn được giao.",
+                            "Không có lịch hẹn chưa hoàn thành.",
                             style: styleTextContentBlack,
                           ),
                         ),

@@ -142,77 +142,80 @@ class _BuildItemUserState extends State<BuildItemUser> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-        child: Container(
-          margin: EdgeInsets.symmetric(
-            vertical: setWidthSize(size: 5),
-            horizontal: setWidthSize(size: 5),
-          ),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  "Khách hàng:",
-                  style: styleTextContentBlack,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    customerProfileModel != null &&
-                            customerProfileModel.linkImages != null
-                        ? CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(customerProfileModel.linkImages),
-                            radius: 30.0,
-                          )
-                        : CircleAvatar(
-                            backgroundImage:
-                                AssetImage("assets/images/library_image.png"),
-                            radius: 30.0,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: setHeightSize(size: 10)),
+        child: Material(
+          elevation: 2,
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: setWidthSize(size: 5),
+              horizontal: setWidthSize(size: 5),
+            ),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    "Khách hàng:",
+                    style: styleTextContentBlack,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      customerProfileModel != null &&
+                              customerProfileModel.linkImages != null
+                          ? CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(customerProfileModel.linkImages),
+                              radius: 30.0,
+                            )
+                          : CircleAvatar(
+                              backgroundImage:
+                                  AssetImage("assets/images/library_image.png"),
+                              radius: 30.0,
+                            ),
+                      SizedBox(
+                        width: setWidthSize(size: 10),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            customerProfileModel == null
+                                ? ""
+                                : customerProfileModel.user_name,
+                            style: styleTextContentBlack,
                           ),
-                    SizedBox(
-                      width: setWidthSize(size: 10),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          customerProfileModel == null
-                              ? ""
-                              : customerProfileModel.user_name,
-                          style: styleTextContentBlack,
-                        ),
-                        Text(
-                          customerProfileModel == null
-                              ? ""
-                              : customerProfileModel.email,
-                          style: styleTextContentBlack,
-                        ),
-                        Text(
-                          customerProfileModel == null
-                              ? ""
-                              : customerProfileModel.phone_number,
-                          style: styleTextContentBlack,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Text(
-                    "Địa điểm: ${widget.appointmentModel.address_appointment}"),
-                Text(
-                    "Thời gian gặp: ${getDateShowHourAndMinute(widget.appointmentModel.time_metting)}"),
-                Text(
-                  "Trạng thái: ${widget.appointmentModel.checked_in == false ? "Chưa hoàn thành" : "Hoàn thành"}",
-                  style: styleTextContentBlack,
-                ),
-              ],
+                          Text(
+                            customerProfileModel == null
+                                ? ""
+                                : customerProfileModel.email,
+                            style: styleTextContentBlack,
+                          ),
+                          Text(
+                            customerProfileModel == null
+                                ? ""
+                                : customerProfileModel.phone_number,
+                            style: styleTextContentBlack,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Text(
+                      "Địa điểm: ${widget.appointmentModel.address_appointment}"),
+                  Text(
+                      "Thời gian gặp: ${getDateShowHourAndMinute(widget.appointmentModel.time_metting)}"),
+                  Text(
+                    "Trạng thái: ${widget.appointmentModel.checked_in == false ? "Chưa hoàn thành" : "Hoàn thành"}",
+                    style: styleTextContentBlack,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

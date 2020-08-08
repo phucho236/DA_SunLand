@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var textConfirmPaswordcontroller = new TextEditingController();
   File _images;
   ImagesBrain imagesBrain = ImagesBrain();
-  bool isClickButton = false;
+  bool isClickButton = true;
   bool whenSendData = false;
   bool hidePassWord = true;
   bool hideConfirmPassWord = true;
@@ -62,8 +62,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text("Đăng kí"),
+        backgroundColor: colorAppbar,
+        title: Text(
+          "Đăng kí",
+          style: styleTextTitleInAppWhite,
+        ),
         // flexibleSpace: Image.asset("assets/images/Sunland_Logo.png"),
       ),
       body: Stack(
@@ -143,158 +146,140 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.emailStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        readOnly: true,
-                        controller: textEmailController,
-                        iconLeft: Icon(
-                          Icons.email,
-                          color: Colors.white,
-                        ),
-                        hintText: "Email: ",
-                        onChanged: (value) {
-                          setState(() {
-                            isClickButton = true;
-                          });
-                          textEmailController = value;
-                        },
+                    TextFieldBorder(
+                      readOnly: true,
+                      controller: textEmailController,
+                      iconLeft: Icon(
+                        Icons.email,
+                        color: Colors.white,
                       ),
+                      hintText: "Email: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textEmailController = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.firsNameStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        controller: textFirstNameController,
-                        iconLeft: Icon(
-                          Icons.short_text,
-                          color: Colors.white,
-                        ),
-                        hintText: "Tên: ",
-                        onChanged: (value) {
-                          setState(() {
-                            isClickButton = true;
-                          });
-                          textFirstNameController = value;
-                        },
+                    TextFieldBorder(
+                      controller: textFirstNameController,
+                      iconLeft: Icon(
+                        Icons.short_text,
+                        color: Colors.white,
                       ),
+                      hintText: "Tên: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textFirstNameController = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.lastNameStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        controller: textLastNameController,
-                        iconLeft: Icon(
-                          Icons.short_text,
-                          color: Colors.white,
-                        ),
-                        hintText: "Họ: ",
-                        onChanged: (value) {
-                          setState(() {
-                            isClickButton = true;
-                          });
-                          textLastNameController = value;
-                        },
+                    TextFieldBorder(
+                      controller: textLastNameController,
+                      iconLeft: Icon(
+                        Icons.short_text,
+                        color: Colors.white,
                       ),
+                      hintText: "Họ: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textLastNameController = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.phoneStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        typeInputIsNumber: true,
-                        controller: textPhoneNumberController,
-                        iconLeft: Icon(
-                          Icons.phone,
-                          color: Colors.white,
-                        ),
-                        hintText: "Số điện thoại: ",
-                        onChanged: (value) {
-                          setState(() {
-                            isClickButton = true;
-                          });
-                          textPhoneNumberController = value;
-                        },
+                    TextFieldBorder(
+                      typeInputIsNumber: true,
+                      controller: textPhoneNumberController,
+                      iconLeft: Icon(
+                        Icons.phone,
+                        color: Colors.white,
                       ),
+                      hintText: "Số điện thoại: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textPhoneNumberController = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.passwordStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        stylePassWord: true,
-                        ShowPass: hidePassWord,
-                        iconShowPas: IconButton(
-                          icon: Icon(
-                            // Based on passwordVisible state choose the icon
-                            hidePassWord
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                          onPressed: () {
-                            // Update the state i.e. toogle the state of passwordVisible variable
-                            setState(() {
-                              hidePassWord = !hidePassWord;
-                            });
-                          },
+                    TextFieldBorder(
+                      stylePassWord: true,
+                      ShowPass: hidePassWord,
+                      iconShowPas: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          hidePassWord
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Theme.of(context).primaryColorLight,
                         ),
-                        controller: textPasswordController,
-                        iconLeft: Icon(
-                          Icons.vpn_key,
-                          color: Colors.white,
-                        ),
-                        hintText: "Mật khẩu: ",
-                        onChanged: (value) {
+                        onPressed: () {
+                          // Update the state i.e. toogle the state of passwordVisible variable
                           setState(() {
-                            isClickButton = true;
+                            hidePassWord = !hidePassWord;
                           });
-                          textPasswordController = value;
                         },
                       ),
+                      controller: textPasswordController,
+                      iconLeft: Icon(
+                        Icons.vpn_key,
+                        color: Colors.white,
+                      ),
+                      hintText: "Mật khẩu: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textPasswordController = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 20),
                     ),
-                    StreamBuilder(
-                      stream: registerController.confirmPassStream,
-                      builder: (context, snapshot) => TextFieldBorder(
-                        ShowPass: hideConfirmPassWord,
-                        iconShowPas: IconButton(
-                          icon: Icon(
-                            // Based on passwordVisible state choose the icon
-                            hideConfirmPassWord
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                          onPressed: () {
-                            // Update the state i.e. toogle the state of passwordVisible variable
-                            setState(() {
-                              hideConfirmPassWord = !hideConfirmPassWord;
-                            });
-                          },
+                    TextFieldBorder(
+                      ShowPass: hideConfirmPassWord,
+                      iconShowPas: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          hideConfirmPassWord
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Theme.of(context).primaryColorLight,
                         ),
-                        controller: textConfirmPaswordcontroller,
-                        stylePassWord: true,
-                        iconLeft: Icon(
-                          Icons.vpn_key,
-                          color: Colors.white,
-                        ),
-                        hintText: "Nhập lại mật khẩu: ",
-                        onChanged: (value) {
+                        onPressed: () {
+                          // Update the state i.e. toogle the state of passwordVisible variable
                           setState(() {
-                            isClickButton = true;
+                            hideConfirmPassWord = !hideConfirmPassWord;
                           });
-                          textConfirmPaswordcontroller = value;
                         },
                       ),
+                      controller: textConfirmPaswordcontroller,
+                      stylePassWord: true,
+                      iconLeft: Icon(
+                        Icons.vpn_key,
+                        color: Colors.white,
+                      ),
+                      hintText: "Nhập lại mật khẩu: ",
+                      onChanged: (value) {
+                        setState(() {
+                          isClickButton = true;
+                        });
+                        textConfirmPaswordcontroller = value;
+                      },
                     ),
                     SizedBox(
                       height: setHeightSize(size: 40),
@@ -309,26 +294,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   isClickButton = false;
                                   whenSendData = true;
                                 });
-                                dynamic document_id_custommer =
-                                    await registerController
-                                        .onSubmitRegisterAddCustommerProfile(
-                                            email: textEmailController.text,
-                                            firstName:
-                                                textFirstNameController.text,
-                                            lastName:
-                                                textLastNameController.text,
-                                            images: _images,
-                                            phoneNumber:
-                                                textPhoneNumberController.text,
-                                            password:
-                                                textPasswordController.text,
-                                            confirmPass:
-                                                textConfirmPaswordcontroller
-                                                    .text,
-                                            created_at:
-                                                DateTime.now().toString(),
-                                            fb_id: args.fb_id,
-                                            gg_id: args.gg_id);
+                                dynamic document_id_custommer = await registerController
+                                    .onSubmitRegisterAddCustommerProfile(
+                                        email: textEmailController.text,
+                                        firstName:
+                                            textFirstNameController.text == null
+                                                ? null
+                                                : textFirstNameController.text
+                                                    .trim(),
+                                        lastName:
+                                            textLastNameController.text == null
+                                                ? null
+                                                : textLastNameController.text
+                                                    .trim(),
+                                        images: _images,
+                                        phoneNumber:
+                                            textPhoneNumberController.text == null
+                                                ? null
+                                                : textPhoneNumberController.text
+                                                    .trim(),
+                                        password:
+                                            textPasswordController.text == null
+                                                ? null
+                                                : textPasswordController.text
+                                                    .trim(),
+                                        confirmPass:
+                                            textConfirmPaswordcontroller.text ==
+                                                    null
+                                                ? null
+                                                : textConfirmPaswordcontroller
+                                                    .text
+                                                    .trim(),
+                                        created_at: DateTime.now().toString(),
+                                        fb_id: args.fb_id,
+                                        gg_id: args.gg_id);
                                 if (document_id_custommer != null) {
                                   String document_id_authenticator =
                                       await registerController

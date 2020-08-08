@@ -56,6 +56,10 @@ class _RemoveUserInGroupDecentralizationScreenState
       setState(() {
         listCustommerProfile = listCustommerProfileTmp;
       });
+    } else {
+      setState(() {
+        listCustommerProfile = [];
+      });
     }
   }
 

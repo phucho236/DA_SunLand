@@ -29,6 +29,7 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
   GroupAttendanceModel groupAttendanceModel;
   String document_id_custommer;
   bool ischeckFakeLocation = false;
+  bool stream_location = false;
 //  StreamSubscription<Position> locationSubscription;
   BuildContext _context;
   RoutingController _routingController;
@@ -90,7 +91,9 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
         }
         if (mocked == false) {
           if (geoCoordinates != null) {
-            _SteamCenteredMapMarkers(geoCoordinates: geoCoordinates);
+            _SteamCenteredMapMarkers(
+                geoCoordinates: geoCoordinates,
+                stream_location: stream_location);
           }
           if (groupAttendanceModel != null) {
             _addRoute(
@@ -319,21 +322,50 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
                         ],
                       ),
                     ),
-                    FlutterSwitch(
-                      activeColor: colorAppbar,
-                      width: setWidthSize(size: 50),
-                      height: setHeightSize(size: 30),
-                      valueFontSize: 14.0,
-                      toggleSize: 10.0,
-                      value: ischeckFakeLocation,
-                      borderRadius: 30.0,
-                      padding: 5.0,
-                      showOnOff: true,
-                      onToggle: (val) {
-                        setState(() {
-                          ischeckFakeLocation = val;
-                        });
-                      },
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        FlutterSwitch(
+                          activeColor: colorAppbar,
+                          width: setWidthSize(size: 50),
+                          height: setHeightSize(size: 30),
+                          valueFontSize: 14.0,
+                          toggleSize: 10.0,
+                          value: ischeckFakeLocation,
+                          borderRadius: 30.0,
+                          padding: 5.0,
+                          showOnOff: true,
+                          onToggle: (val) {
+                            setState(() {
+                              ischeckFakeLocation = val;
+                            });
+                          },
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "Theo giỏi vị trí: ",
+                              style: styleTextContentBlack,
+                            ),
+                            FlutterSwitch(
+                              activeColor: colorAppbar,
+                              width: setWidthSize(size: 50),
+                              height: setHeightSize(size: 30),
+                              valueFontSize: 14.0,
+                              toggleSize: 10.0,
+                              value: stream_location,
+                              borderRadius: 30.0,
+                              padding: 5.0,
+                              showOnOff: true,
+                              onToggle: (val) {
+                                setState(() {
+                                  stream_location = val;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ],
                 ),
@@ -716,9 +748,11 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
     });
   }
 
-  void _SteamCenteredMapMarkers({GeoCoordinates geoCoordinates}) {
+  void _SteamCenteredMapMarkers(
+      {GeoCoordinates geoCoordinates, bool stream_location}) {
     if (geoCoordinates != null) {
-      _mapMarkerController.StreamCenteredMapMarkers(geoCoordinates);
+      _mapMarkerController.StreamCenteredMapMarkers(
+          geoCoordinates, stream_location);
     }
   }
 

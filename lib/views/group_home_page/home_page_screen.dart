@@ -133,7 +133,12 @@ class _HomePageScreenState extends State<HomePageScreen>
     //monitor fetch data from network
     await Future.delayed(Duration(milliseconds: 1000));
     getListProduct();
-    if (mounted) setState(() {});
+
+    if (mounted)
+      setState(() {
+        getListProduct();
+        onfind = false;
+      });
     _refreshController.refreshCompleted();
   }
 

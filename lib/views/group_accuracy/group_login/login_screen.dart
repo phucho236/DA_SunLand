@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_core/api/api_model.dart';
 import 'package:flutter_core/helpers/utils.dart';
 import 'package:flutter_core/views/group_accuracy/group_forgot_password/forgot_password_screen.dart';
@@ -39,18 +40,23 @@ class _LoginScreenState extends State<LoginScreen>
     controller = AnimationController(
       duration: Duration(seconds: 1),
       vsync: this,
-    ); //, upperBound:  100 giá trị tăng dần từ 0 đến 100
+    );
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
+    print(animation.value);
     controller.forward();
-    controller.addListener(() {});
+    controller.addListener(() {
+      setState(() {
+        //controller.value;
+        print(animation.value);
+      });
+    });
     onViewIntroduce();
     // TODO: implement initState
     super.initState();
   }
 
   onViewIntroduce() async {
-    if (await getIntroduce == true) {
-      print(getIntroduce);
+    if (await getIntroduce() != true) {
       Navigator.pushReplacementNamed(context, IntroduceScreen.id);
     } else {
       onLogin();
@@ -71,315 +77,319 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         fit: StackFit.expand,
         alignment: Alignment.bottomRight,
         children: <Widget>[
           Container(
+            // height: getScreenHeight(),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/background_login.jpg"),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Hero(
-                            tag: "SunLand_Logo_Ainimation",
-                            child: Container(
-                              height: animation.value * 250,
-                              child: Image.asset(
-                                "assets/images/icon_sunland.png",
-                                //height: setHeightSize(size: 200),
-                              ),
-                            ),
-                          ),
-                          Image.asset("assets/images/icon_text_sunland.png",
-                              height: setHeightSize(size: 50)),
-                        ],
-                      ),
-                      height: getScreenHeight() / 2 - getTopBarHeight(),
-                      width: setHeightSize(size: 300),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: setWidthSize(size: 15)),
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: setHeightSize(size: 10)),
-                              child: StreamBuilder(
-                                stream: loginController.errStream,
-                                builder: (context, snapshot) => Text(
-                                  snapshot.hasError ? snapshot.error : '',
-                                  style: styleTextErrorWhite,
+              child: Container(
+                height: getScreenHeight() + setHeightSize(size: 120),
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Hero(
+                              tag: "SunLand_Logo_Ainimation",
+                              child: Container(
+                                height: animation.value * 250,
+                                child: Image.asset(
+                                  "assets/images/icon_sunland.png",
+                                  //height: setHeightSize(size: 200),
                                 ),
                               ),
                             ),
-                          ),
-                          TextFieldBorder(
-                            iconLeft: Icon(
-                              Icons.perm_identity,
-                              color: Colors.white,
-                            ),
-                            hintText: "Tài khoản",
-                            onChanged: (value) {
-                              setState(() {
-                                isClickButton = true;
-                              });
-                              email = value;
-                            },
-                          ),
-                          SizedBox(
-                            height: setHeightSize(size: 20),
-                          ),
-                          TextFieldBorder(
-                            stylePassWord: hidePassWord,
-                            hintText: "Mật khẩu",
-                            onChanged: (value) {
-                              setState(() {
-                                isClickButton = true;
-                              });
-                              pass = value;
-                            },
-                            iconLeft: Icon(
-                              Icons.vpn_key,
-                              color: Colors.white,
-                            ),
-                            iconShowPas: IconButton(
-                              icon: Icon(
-                                // Based on passwordVisible state choose the icon
-                                hidePassWord
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Theme.of(context).primaryColorDark,
+                            Image.asset("assets/images/icon_text_sunland.png",
+                                height: setHeightSize(size: 50)),
+                          ],
+                        ),
+                        height: getScreenHeight() / 2 - getTopBarHeight(),
+                        width: setHeightSize(size: 300),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: setWidthSize(size: 15)),
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Center(
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: setHeightSize(size: 10)),
+                                child: StreamBuilder(
+                                  stream: loginController.errStream,
+                                  builder: (context, snapshot) => Text(
+                                    snapshot.hasError ? snapshot.error : '',
+                                    style: styleTextErrorWhite,
+                                  ),
+                                ),
                               ),
-                              onPressed: () {
-                                // Update the state i.e. toogle the state of passwordVisible variable
+                            ),
+                            TextFieldBorder(
+                              iconLeft: Icon(
+                                Icons.perm_identity,
+                                color: Colors.white,
+                              ),
+                              hintText: "Tài khoản",
+                              onChanged: (value) {
                                 setState(() {
-                                  hidePassWord = !hidePassWord;
+                                  isClickButton = true;
                                 });
+                                email = value;
                               },
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                child: Text(
-                                  "Quên mật khẩu ?",
-                                  style: styleText,
+                            SizedBox(
+                              height: setHeightSize(size: 20),
+                            ),
+                            TextFieldBorder(
+                              stylePassWord: hidePassWord,
+                              hintText: "Mật khẩu",
+                              onChanged: (value) {
+                                setState(() {
+                                  isClickButton = true;
+                                });
+                                pass = value;
+                              },
+                              iconLeft: Icon(
+                                Icons.vpn_key,
+                                color: Colors.white,
+                              ),
+                              iconShowPas: IconButton(
+                                icon: Icon(
+                                  // Based on passwordVisible state choose the icon
+                                  hidePassWord
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, ForgotPasswordScreen.id);
+                                  // Update the state i.e. toogle the state of passwordVisible variable
+                                  setState(() {
+                                    hidePassWord = !hidePassWord;
+                                  });
                                 },
                               ),
-                            ],
-                          ),
-                          Container(
-                            width: setWidthSize(size: 200),
-                            child: ButtonNormal(
-                              onTap: isClickButton
-                                  ? () async {
-                                      setState(() {
-                                        isClickButton = false;
-                                        whenSendData = true;
-                                      });
-                                      await loginController
-                                          .onSubmitLogin(
-                                              email: email != null
-                                                  ? email.trim()
-                                                  : email,
-                                              password: pass != null
-                                                  ? pass.trim()
-                                                  : pass)
-                                          .then((value) {
-                                        if (value) {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SaveDataScreen(),
-                                            ),
-                                          );
-                                        } else {
-                                          setState(() {
-                                            whenSendData = false;
-                                          });
-                                        }
-                                      });
-                                    }
-                                  : null,
-                              text: "Đăng nhập",
                             ),
-                          ),
-                          SizedBox(
-                            height: setHeightSize(size: 20),
-                          ),
-                          Text(
-                            "Hoặc đăng nhập với: ",
-                            style: styleText,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.red, // button color
-                                  child: InkWell(
-                                    splashColor: Colors.grey, // inkwell color
-                                    child: SizedBox(
-                                      width: setHeightSize(size: 45),
-                                      height: setHeightSize(size: 45),
-                                      child: Image.asset(
-                                          "assets/images/google_icon.png"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                FlatButton(
+                                  child: Text(
+                                    "Quên mật khẩu ?",
+                                    style: styleText,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, ForgotPasswordScreen.id);
+                                  },
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: setWidthSize(size: 200),
+                              child: ButtonNormal(
+                                onTap: isClickButton
+                                    ? () async {
+                                        setState(() {
+                                          isClickButton = false;
+                                          whenSendData = true;
+                                        });
+                                        await loginController
+                                            .onSubmitLogin(
+                                                email: email != null
+                                                    ? email.trim()
+                                                    : email,
+                                                password: pass != null
+                                                    ? pass.trim()
+                                                    : pass)
+                                            .then((value) {
+                                          if (value) {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SaveDataScreen(),
+                                              ),
+                                            );
+                                          } else {
+                                            setState(() {
+                                              whenSendData = false;
+                                            });
+                                          }
+                                        });
+                                      }
+                                    : null,
+                                text: "Đăng nhập",
+                              ),
+                            ),
+                            SizedBox(
+                              height: setHeightSize(size: 20),
+                            ),
+                            Text(
+                              "Hoặc đăng nhập với: ",
+                              style: styleText,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                ClipOval(
+                                  child: Material(
+                                    color: Colors.red, // button color
+                                    child: InkWell(
+                                      splashColor: Colors.grey, // inkwell color
+                                      child: SizedBox(
+                                        width: setHeightSize(size: 45),
+                                        height: setHeightSize(size: 45),
+                                        child: Image.asset(
+                                            "assets/images/google_icon.png"),
+                                      ),
+                                      onTap: () async {
+                                        setState(() {
+                                          isClickButton = false;
+                                          whenSendData = true;
+                                        });
+                                        await loginWithGoogleController
+                                            .initiateGoogleLogin()
+                                            .then((value) {
+                                          if (value.runtimeType ==
+                                              ProfileGoogle) {
+                                            print(value.uid);
+                                            Navigator.pushNamed(
+                                              context,
+                                              RegisterScreen.id,
+                                              arguments: RegisterScreen(
+                                                email: value.email,
+                                                fist_name: value.displayName,
+                                                gg_id: value.uid,
+                                                phone_number: value.phoneNumber,
+                                              ),
+                                            ).then((value) {
+                                              if (value == true) {
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDiaLogScreen(
+                                                      title: "Thông báo",
+                                                      message:
+                                                          "Tạo tài khoản thành công",
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            });
+                                          }
+                                          if (value.runtimeType ==
+                                              CustomerProfileModel) {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SaveDataScreen(),
+                                              ),
+                                            );
+                                          } else {
+                                            setState(() {
+                                              whenSendData = false;
+                                            });
+                                          }
+                                        });
+                                      },
                                     ),
-                                    onTap: () async {
-                                      setState(() {
-                                        isClickButton = false;
-                                        whenSendData = true;
-                                      });
-                                      await loginWithGoogleController
-                                          .initiateGoogleLogin()
-                                          .then((value) {
-                                        if (value.runtimeType ==
-                                            ProfileGoogle) {
-                                          print(value.uid);
-                                          Navigator.pushNamed(
-                                            context,
-                                            RegisterScreen.id,
-                                            arguments: RegisterScreen(
-                                              email: value.email,
-                                              fist_name: value.displayName,
-                                              gg_id: value.uid,
-                                              phone_number: value.phoneNumber,
-                                            ),
-                                          ).then((value) {
-                                            if (value == true) {
-                                              showDialog(
-                                                barrierDismissible: false,
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDiaLogScreen(
-                                                    title: "Thông báo",
-                                                    message:
-                                                        "Tạo tài khoản thành công",
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          });
-                                        }
-                                        if (value.runtimeType ==
-                                            CustomerProfileModel) {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SaveDataScreen(),
-                                            ),
-                                          );
-                                        } else {
-                                          setState(() {
-                                            whenSendData = false;
-                                          });
-                                        }
-                                      });
-                                    },
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: setWidthSize(size: 10),
-                              ),
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.blue, // button color
-                                  child: InkWell(
-                                    splashColor: Colors.grey, // inkwell color
-                                    child: SizedBox(
-                                      width: setHeightSize(size: 45),
-                                      height: setHeightSize(size: 45),
-                                      child: Image.asset(
-                                          "assets/images/facebook_icon.png"),
+                                SizedBox(
+                                  width: setWidthSize(size: 10),
+                                ),
+                                ClipOval(
+                                  child: Material(
+                                    color: Colors.blue, // button color
+                                    child: InkWell(
+                                      splashColor: Colors.grey, // inkwell color
+                                      child: SizedBox(
+                                        width: setHeightSize(size: 45),
+                                        height: setHeightSize(size: 45),
+                                        child: Image.asset(
+                                            "assets/images/facebook_icon.png"),
+                                      ),
+                                      onTap: () async {
+                                        setState(() {
+                                          isClickButton = false;
+                                          whenSendData = true;
+                                        });
+                                        await loginWithFacebookController
+                                            .initiateFacebookLogin()
+                                            .then((value) {
+                                          if (value.runtimeType ==
+                                              ProfileFacebook) {
+                                            Navigator.pushNamed(
+                                              context,
+                                              RegisterScreen.id,
+                                              arguments: RegisterScreen(
+                                                fist_name: value.first_name,
+                                                email: value.email,
+                                                fb_id: value.id,
+                                                last_name: value.last_name,
+                                              ),
+                                            ).then((value) {
+                                              if (value == true) {
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDiaLogScreen(
+                                                      title: "Thông báo",
+                                                      message:
+                                                          "Tạo tài khoản thành công",
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            });
+                                          }
+                                          if (value.runtimeType ==
+                                              CustomerProfileModel) {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SaveDataScreen(),
+                                              ),
+                                            );
+                                          } else {
+                                            setState(() {
+                                              whenSendData = false;
+                                            });
+                                          }
+                                        });
+                                      },
                                     ),
-                                    onTap: () async {
-                                      setState(() {
-                                        isClickButton = false;
-                                        whenSendData = true;
-                                      });
-                                      await loginWithFacebookController
-                                          .initiateFacebookLogin()
-                                          .then((value) {
-                                        if (value.runtimeType ==
-                                            ProfileFacebook) {
-                                          Navigator.pushNamed(
-                                            context,
-                                            RegisterScreen.id,
-                                            arguments: RegisterScreen(
-                                              fist_name: value.first_name,
-                                              email: value.email,
-                                              fb_id: value.id,
-                                              last_name: value.last_name,
-                                            ),
-                                          ).then((value) {
-                                            if (value == true) {
-                                              showDialog(
-                                                barrierDismissible: false,
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDiaLogScreen(
-                                                    title: "Thông báo",
-                                                    message:
-                                                        "Tạo tài khoản thành công",
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          });
-                                        }
-                                        if (value.runtimeType ==
-                                            CustomerProfileModel) {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SaveDataScreen(),
-                                            ),
-                                          );
-                                        } else {
-                                          setState(() {
-                                            whenSendData = false;
-                                          });
-                                        }
-                                      });
-                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

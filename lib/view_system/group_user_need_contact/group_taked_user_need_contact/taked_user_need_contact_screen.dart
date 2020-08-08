@@ -33,13 +33,8 @@ class _TakedUserNeedContactScreenState
             .onLoadGetListProductNeedSuportModelContactBy(
                 taked: taked, contacted: contacted);
     if (ListProductNeedSuportModelNotYetContactByTmp.length > 0) {
-      if (mounted) {
-        setState(() {
-          ListProductNeedSuportModelNotYetContactBy =
-              ListProductNeedSuportModelNotYetContactByTmp;
-        });
-        getListDataCustommerProfile();
-      }
+      await getListDataCustommerProfile(
+          ListProductNeedSuportModelNotYetContactByTmp);
     } else {
       setState(() {
         ListProductNeedSuportModelNotYetContactBy = [];
@@ -49,11 +44,12 @@ class _TakedUserNeedContactScreenState
     }
   }
 
-  getListDataCustommerProfile() async {
+  getListDataCustommerProfile(
+      ListProductNeedSuportModelNotYetContactByTmp) async {
     var customerProfile;
     List<CustomerProfileModel>
         ListProfileCustommerNeedSuportModelNotYetContactBytmp = [];
-    for (var item in ListProductNeedSuportModelNotYetContactBy) {
+    for (var item in ListProductNeedSuportModelNotYetContactByTmp) {
       customerProfile =
           await takedUserNeedContactController.onLoadGetDataProifile(
               document_id_custommer: item.document_id_custommer_need_contact);
@@ -69,6 +65,8 @@ class _TakedUserNeedContactScreenState
           isLoading = false;
           ListProfileCustommerNeedSuportModelNotYetContactBy =
               ListProfileCustommerNeedSuportModelNotYetContactBytmp;
+          ListProductNeedSuportModelNotYetContactBy =
+              ListProductNeedSuportModelNotYetContactByTmp;
         });
       }
     } else {
@@ -87,8 +85,7 @@ class _TakedUserNeedContactScreenState
     setState(() {
       isLoading = true;
     });
-
-    getListProductNeedSuportModelNotYetContactBy();
+    getListProductNeedSuportModelNotYetContactBy(taked: true);
   }
 
   @override
@@ -107,7 +104,7 @@ class _TakedUserNeedContactScreenState
                     RaisedButton(
                       onPressed: () async {
                         await getListProductNeedSuportModelNotYetContactBy(
-                            taked: true, contacted: false);
+                            contacted: false, taked: true);
                       },
                       color: colorAppbar,
                       child: Text("Chưa xử lí"),
@@ -143,7 +140,8 @@ class _TakedUserNeedContactScreenState
                     onRefresh: () async {
                       //monitor fetch data from network
                       await Future.delayed(Duration(milliseconds: 1000));
-                      await getListProductNeedSuportModelNotYetContactBy();
+                      await getListProductNeedSuportModelNotYetContactBy(
+                          taked: true);
                       if (mounted) setState(() {});
                       _refreshController.refreshCompleted();
                     },
@@ -190,8 +188,7 @@ class _TakedUserNeedContactScreenState
               productNeedSuportModel: productNeedSuportModel,
             )).then((value) async {
           if (value == true) {
-            await getListProductNeedSuportModelNotYetContactBy();
-            await getListDataCustommerProfile();
+            getListProductNeedSuportModelNotYetContactBy(taked: true);
           }
         });
       },

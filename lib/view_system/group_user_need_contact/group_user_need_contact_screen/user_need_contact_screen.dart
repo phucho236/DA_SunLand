@@ -29,10 +29,12 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
         await userNeedContactController
             .onLoadGetListProductNeedSuportModelNotYetContactBy();
     if (ListProductNeedSuportModelNotYetContactByTmp.length > 0) {
-      setState(() {
-        ListProductNeedSuportModelNotYetContactBy =
-            ListProductNeedSuportModelNotYetContactByTmp;
-      });
+      if (mounted) {
+        setState(() {
+          ListProductNeedSuportModelNotYetContactBy =
+              ListProductNeedSuportModelNotYetContactByTmp;
+        });
+      }
       getListDataCustommerProfile();
     } else {
       setState(() {
@@ -55,15 +57,19 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
     }
 
     if (ListProfileCustommerNeedSuportModelNotYetContactBytmp.length > 0) {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+          ListProfileCustommerNeedSuportModelNotYetContactBy =
+              ListProfileCustommerNeedSuportModelNotYetContactBytmp;
+        });
+      }
+    }
+    if (mounted) {
       setState(() {
         isLoading = false;
-        ListProfileCustommerNeedSuportModelNotYetContactBy =
-            ListProfileCustommerNeedSuportModelNotYetContactBytmp;
       });
     }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -73,6 +79,7 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
     setState(() {
       isLoading = true;
     });
+
     getListProductNeedSuportModelNotYetContactBy();
   }
 

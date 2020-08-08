@@ -43,6 +43,7 @@ class _IntroduceScreenState extends State<IntroduceScreen> {
           gradient: LinearGradient(
               colors: [const Color(0xff3C8CE7), const Color(0xff00EAFF)])),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Container(
           child: Stack(
@@ -127,8 +128,8 @@ class _IntroduceScreenState extends State<IntroduceScreen> {
                 ),
               )
             : InkWell(
-                onTap: () {
-                  setIntroduce(viewed_introduce: true);
+                onTap: () async {
+                  await setIntroduce(viewed_introduce: true);
                   Navigator.pushNamed(context, LoginScreen.id);
                 },
                 child: Container(
