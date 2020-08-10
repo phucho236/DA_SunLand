@@ -1195,7 +1195,7 @@ class HttpApi {
     return list_product_need_suport_model;
   }
 
-  UpdateProductNeedSuport(
+  Future<bool> UpdateProductNeedSuport(
       {String document_id_product_need_sp,
       String document_id_custommer_contact,
       String document_id_custommer_taked,
@@ -1236,7 +1236,7 @@ class HttpApi {
     return true;
   }
 
-  PostNoteProductNeedSuport(
+  Future<bool> PostNoteProductNeedSuport(
       {String note,
       String document_id_product_need_sp,
       String document_id_custommer}) async {
@@ -1260,6 +1260,28 @@ class HttpApi {
       return false;
     });
     return true;
+  }
+
+  Future<bool> CheckTakedProductNeedSuport(
+      {String document_id_product_need_support}) async {
+    print("==========  Kiểm tra hỗ trợ đã đc nhận hay chưa ? ==========");
+    ProductNeedSuportModel productModel;
+    await firestoreInstance
+        .collection(PathDatabase.ProductNeedSuport)
+        .document(document_id_product_need_support)
+        .get()
+        .then((value) async {
+      print(value.data);
+
+      if (value != null) {
+        productModel = ProductNeedSuportModel.fromJson(value.data);
+      }
+    });
+    if (productModel != null) {
+      return productModel.taked;
+    } else {
+      return false;
+    }
   }
 
   Future<List<NotedModel>> GetListNotedProductNeedSuport(

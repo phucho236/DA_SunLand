@@ -38,7 +38,13 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
       getListDataCustommerProfile();
     } else {
       setState(() {
-        isLoading = false;
+        if (mounted) {
+          setState(() {
+            ListProductNeedSuportModelNotYetContactBy = [];
+            ListProfileCustommerNeedSuportModelNotYetContactBy = [];
+            isLoading = false;
+          });
+        }
       });
     }
   }
@@ -64,11 +70,14 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
               ListProfileCustommerNeedSuportModelNotYetContactBytmp;
         });
       }
-    }
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
+    } else {
+      if (mounted) {
+        setState(() {
+          ListProductNeedSuportModelNotYetContactBy = [];
+          ListProfileCustommerNeedSuportModelNotYetContactBy = [];
+          isLoading = false;
+        });
+      }
     }
   }
 
@@ -132,8 +141,6 @@ class _UserNeedContactScreenState extends State<UserNeedContactScreen> {
           right: setWidthSize(size: 5),
         ),
         itemBuilder: (context, index) {
-          print(ListProductNeedSuportModelNotYetContactBy[index]
-              .document_id_product_need_support);
           return Item(
               customerProfileModel:
                   ListProfileCustommerNeedSuportModelNotYetContactBy[index],

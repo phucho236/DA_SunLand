@@ -329,18 +329,37 @@ class _DetailUserNeedContactState extends State<DetailUserNeedContact> {
                               taked: true,
                               document_id_custommer_taked:
                                   document_id_custommer,
-                            );
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDiaLogScreen(
-                                  title: "Thông báo",
-                                  message: "Nhận liên lạc thành công",
-                                );
-                              },
-                            ).then((value) {
-                              Navigator.pop(context, true);
+                            )
+                                .then((value) {
+                              if (value == true) {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDiaLogScreen(
+                                      title: "Thông báo",
+                                      message: "Nhận liên lạc thành công.",
+                                    );
+                                  },
+                                ).then((value) {
+                                  Navigator.pop(context, true);
+                                });
+                              }
+                              if (value == false) {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDiaLogScreen(
+                                      title: "Thông báo",
+                                      message:
+                                          "Liên lạc đã được người khác nhận.",
+                                    );
+                                  },
+                                ).then((value) {
+                                  Navigator.pop(context, true);
+                                });
+                              }
                             });
                           },
                           text: "Nhận liên lạc",
@@ -851,18 +870,26 @@ class _buildAlertDialogPickUserSystemState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      listCustommerProfile[index].email,
+                                      listCustommerProfile[index].user_name,
                                       style: styleTextContentBlack,
                                     ),
-                                    Container(
-                                      height: setHeightSize(size: 20),
-                                      child: ScrollingText(
-                                        text: Text(
-                                          listCustommerProfile[index].user_name,
-                                          style: styleTextContentBlack,
-                                        ),
-                                      ),
-                                    ),
+                                    listCustommerProfile[index].email.length >
+                                            24
+                                        ? Container(
+                                            child: ScrollingText(
+                                              text: Text(
+                                                listCustommerProfile[index]
+                                                    .email,
+                                                style: styleTextContentBlack,
+                                              ),
+                                            ),
+                                            height: setHeightSize(size: 20),
+                                            width: setWidthSize(size: 190),
+                                          )
+                                        : Text(
+                                            listCustommerProfile[index].email,
+                                            style: styleTextContentBlack,
+                                          ),
                                   ],
                                 ),
                               ],

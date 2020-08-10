@@ -29,20 +29,35 @@ class DetailUserNeedContactController {
         document_id_product_need_sp: document_id_product_need_sp);
   }
 
-  onSubmitUpdateProductNeedSuport(
-      {String document_id_custommer_taked,
-      String document_id_custommer_contact,
-      String document_id_product_need_sp,
-      bool taked,
-      bool contacted,
-      bool}) async {
+  Future<bool> CheckTaked({String document_id_product_need_sp}) async {
     var api = HttpApi();
-    return await api.UpdateProductNeedSuport(
-        document_id_custommer_contact: document_id_custommer_contact,
-        contacted: contacted,
-        taked: taked,
-        document_id_custommer_taked: document_id_custommer_taked,
+    return await api.CheckTakedProductNeedSuport(
+        document_id_product_need_support: document_id_product_need_sp);
+  }
+
+  Future<bool> onSubmitUpdateProductNeedSuport({
+    String document_id_custommer_taked,
+    String document_id_custommer_contact,
+    String document_id_product_need_sp,
+    bool taked,
+    bool contacted,
+  }) async {
+    bool take_it = false;
+    var api = HttpApi();
+    take_it = await CheckTaked(
         document_id_product_need_sp: document_id_product_need_sp);
+
+    print("ABCD $take_it");
+    if (take_it == false) {
+      return await api.UpdateProductNeedSuport(
+          document_id_custommer_contact: document_id_custommer_contact,
+          contacted: contacted,
+          taked: taked,
+          document_id_custommer_taked: document_id_custommer_taked,
+          document_id_product_need_sp: document_id_product_need_sp);
+    } else {
+      return false;
+    }
   }
 
   Future<bool> onSubmitPostNoteProductNeedSuport(
