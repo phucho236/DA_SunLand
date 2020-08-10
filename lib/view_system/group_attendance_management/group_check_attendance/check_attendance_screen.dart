@@ -46,11 +46,12 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
     foo.PermissionStatus _permissionGranted;
 
     _serviceEnabled = await location.serviceEnabled();
+    setState(() {
+      serviceEnabled = _serviceEnabled;
+    });
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
-      setState(() {
-        serviceEnabled = _serviceEnabled;
-      });
+
       if (!_serviceEnabled) {
         return;
       }
@@ -765,9 +766,12 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
   }
 
   void _centeredMapMarkers() async {
+    print("a");
     if (serviceEnabled == false) {
+      print("c");
       checkPermistionLocation();
     } else {
+      print("d");
       _clearMapMarker();
       _mapMarkerController.showCenteredMapMarkers();
     }
