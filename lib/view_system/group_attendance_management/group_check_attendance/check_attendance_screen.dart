@@ -34,6 +34,7 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
   BuildContext _context;
   RoutingController _routingController;
   MapMarkerController _mapMarkerController;
+  bool serviceEnabled = false;
   foo.Location location = foo.Location();
   var geolocator = Geolocator();
   StreamSubscription<Position> positionStream;
@@ -48,6 +49,10 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
+        print(_serviceEnabled);
+        setState(() {
+          serviceEnabled = _serviceEnabled;
+        });
         return;
       }
     }
@@ -761,9 +766,12 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
   }
 
   void _centeredMapMarkers() async {
-    checkPermistionLocation();
-    _clearMapMarker();
-    _mapMarkerController.showCenteredMapMarkers();
+    if (serviceEnabled == false) {
+      checkPermistionLocation();
+    } else {
+      _clearMapMarker();
+      _mapMarkerController.showCenteredMapMarkers();
+    }
   }
 
   void _showMakerEnd({GeoCoordinates endtgeoCoordinates}) {

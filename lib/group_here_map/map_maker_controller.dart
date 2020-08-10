@@ -152,16 +152,19 @@ class MapMarkerController {
 
   // lấy vị trí hiện tại và cập nhật camera
   Future<GeoCoordinates> showCenteredMapMarkers() async {
-    GeoCoordinates geoCoordinates = await _getLocation();
+    GeoCoordinates geoCoordinates;
+    geoCoordinates = await _getLocation();
     //GeoCoordinates geoCoordinates = _createRandomGeoCoordinatesInViewport();
-    // Centered on location.
-    _addPhotoMapMarker(geoCoordinates, 0);
-    // Centered on location. Shown above the photo marker to indicate the location.
-    // cập nhật độ cao
-    _hereMapController.camera.internalupdateAltitude(500);
-    // cập nhật vị trí focus...
-    _hereMapController.camera.internalupdateCoordinates(
-        GeoCoordinates(geoCoordinates.latitude, geoCoordinates.longitude));
+    if (geoCoordinates.latitude != null) {
+      // Centered on location.
+      _addPhotoMapMarker(geoCoordinates, 0);
+      // Centered on location. Shown above the photo marker to indicate the location.
+      // cập nhật độ cao
+      _hereMapController.camera.internalupdateAltitude(500);
+      // cập nhật vị trí focus...
+      _hereMapController.camera.internalupdateCoordinates(
+          GeoCoordinates(geoCoordinates.latitude, geoCoordinates.longitude));
+    }
   }
 
   void _clearMapMarkerPlace() {
