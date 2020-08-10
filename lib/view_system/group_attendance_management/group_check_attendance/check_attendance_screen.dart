@@ -48,11 +48,10 @@ class _CheckAttendanceScreenState extends State<CheckAttendanceScreen> {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
+      setState(() {
+        serviceEnabled = _serviceEnabled;
+      });
       if (!_serviceEnabled) {
-        print(_serviceEnabled);
-        setState(() {
-          serviceEnabled = _serviceEnabled;
-        });
         return;
       }
     }
