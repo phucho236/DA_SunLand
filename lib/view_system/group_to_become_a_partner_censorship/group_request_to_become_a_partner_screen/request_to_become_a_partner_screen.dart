@@ -18,8 +18,6 @@ class RequestToBecomeAPartnerScreen extends StatefulWidget {
 class _RequestToBecomeAPartnerScreenState
     extends State<RequestToBecomeAPartnerScreen> {
   bool isLoading = false;
-  SupportChatWithUserController supportChatWithUserController =
-      SupportChatWithUserController();
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   List<RequestToBecomeAPartnerModel> listRequestToBecomeAPartnerModel = [];
@@ -46,10 +44,13 @@ class _RequestToBecomeAPartnerScreenState
         });
       }
     } else {
-      isLoading = false;
-      listCustommerProfile = [];
-      listRequestToBecomeAPartnerModel = [];
-      setState(() {});
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+          listCustommerProfile = [];
+          listRequestToBecomeAPartnerModel = [];
+        });
+      }
     }
   }
 

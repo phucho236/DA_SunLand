@@ -1562,7 +1562,7 @@ class HttpApi {
         RequestToBecomeAPartnerModel();
     await firestoreInstance
         .collection(PathDatabase.RequestToBecomeAPartner)
-        .where("document_id_custommer", isEqualTo: document_id_custommer)
+        .where("censored_by", isEqualTo: document_id_custommer)
         .where("censored", isEqualTo: censored)
         .getDocuments()
         .then((value) {
@@ -1592,6 +1592,7 @@ class HttpApi {
     data["accepted"] = accepted;
     data["censored"] = true;
     data["censored_at"] = DateTime.now().toString();
+    data["last_edit"] = null;
     data["censored_by"] = document_id_custommer;
     await firestoreInstance
         .collection(PathDatabase.RequestToBecomeAPartner)
@@ -1602,7 +1603,7 @@ class HttpApi {
     });
     if (accepted == true) {
       Map<String, dynamic> data1 = Map<String, dynamic>();
-      data["is_partner"] = true;
+      data1["is_partner"] = true;
       await firestoreInstance
           .collection(PathDatabase.CustomerProfile)
           .document(document_id_custommer_send_request)

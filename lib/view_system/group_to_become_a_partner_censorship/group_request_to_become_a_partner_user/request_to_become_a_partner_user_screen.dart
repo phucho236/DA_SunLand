@@ -47,10 +47,11 @@ class _RequestToBecomeAPartnerOfTheUserScreenState
         });
       }
     } else {
-      isLoading = false;
-      listCustommerProfile = [];
-      listRequestToBecomeAPartnerModel = [];
-      setState(() {});
+      setState(() {
+        isLoading = false;
+        listCustommerProfile = [];
+        listRequestToBecomeAPartnerModel = [];
+      });
     }
   }
 

@@ -46,7 +46,7 @@ class ForgotPasswordController {
     InfoOTP infoOTP = InfoOTP();
     _errController.sink.add('Ok');
     if (!validators.isValidOTP(otp)) {
-      _errController.sink.addError('OTP không được để trống');
+      _errController.sink.addError('Vui lòng kiểm tra lại OTP');
       countError++;
     }
     print(countError);
@@ -59,7 +59,6 @@ class ForgotPasswordController {
           infoOTP = InfoOTP.fromJson(value);
           DateTime timeCreatOTP = DateTime.parse(infoOTP.time_create_otp)
               .add(new Duration(minutes: 30));
-
           if (DateTime.now().isAfter(timeCreatOTP)) {
             _errController.sink.addError('OTP hết thời gian sử dụng');
           } else {

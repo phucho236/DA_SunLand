@@ -31,26 +31,27 @@ class _RequestToBecomeAPartnerAllScreenState
     listRequestToBecomeAPartnerModelTmp =
         await requestToBecomeAPartnerAllController
             .onLoadGetListRequestToBecomeAPartnerUser();
+    print(listRequestToBecomeAPartnerModelTmp.length);
     if (listRequestToBecomeAPartnerModelTmp.length > 0) {
       if (mounted) {
         List<CustomerProfileModel> listCustommerProfileTmp = [];
         listCustommerProfileTmp = await requestToBecomeAPartnerAllController
             .onLoadGetListProFileCustommer(listRequestToBecomeAPartnerModelTmp);
-
-        if (mounted) {
-          setState(() {
-            isLoading = false;
-            listCustommerProfileTmp = listCustommerProfile;
-            listRequestToBecomeAPartnerModel =
-                listRequestToBecomeAPartnerModelTmp;
-          });
-        }
+        setState(() {
+          isLoading = false;
+          listCustommerProfile = listCustommerProfileTmp;
+          listRequestToBecomeAPartnerModel =
+              listRequestToBecomeAPartnerModelTmp;
+        });
       }
     } else {
-      isLoading = false;
-      listCustommerProfile = [];
-      listRequestToBecomeAPartnerModel = [];
-      setState(() {});
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+          listCustommerProfile = [];
+          listRequestToBecomeAPartnerModel = [];
+        });
+      }
     }
   }
 

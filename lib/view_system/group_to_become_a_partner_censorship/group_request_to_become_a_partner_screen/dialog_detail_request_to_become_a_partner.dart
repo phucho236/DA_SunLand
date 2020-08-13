@@ -318,12 +318,12 @@ class _DialogDetailRequestToBecomeAPartnerState
             ]
           : <Widget>[
               FlatButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context);
-                  mailReplyController.MailReply(
+                  await mailReplyController.MailReply(
                       recipents_email: widget.customerProfileModel.email,
                       Type: true);
-                  requestToBecomeAPartnerController.onAcceptRequest(
+                  await requestToBecomeAPartnerController.onAcceptRequest(
                       document_id_custommer_send_request: widget
                           .requestToBecomeAPartnerModel.document_id_custommer,
                       accepted: true,

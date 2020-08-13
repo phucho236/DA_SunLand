@@ -18,7 +18,7 @@ class LoginWithFacebookController {
   }
 
   Future<dynamic> initiateFacebookLogin() async {
-    //facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     final facebookLoginResult = await facebookLogin.logIn(['email']);
     print(facebookLoginResult.status);
     var graphResponse = await http.get(

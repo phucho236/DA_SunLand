@@ -2,8 +2,7 @@ import 'package:flutter_core/api/api_http.dart';
 import 'package:flutter_core/api/api_model.dart';
 
 class RequestToBecomeAPartnerAllController {
-  onLoadGetListRequestToBecomeAPartnerUser(
-      {String document_id_custommer}) async {
+  onLoadGetListRequestToBecomeAPartnerUser() async {
     var api = HttpApi();
     return await api.GetListRequestToBecomeAPartner();
   }

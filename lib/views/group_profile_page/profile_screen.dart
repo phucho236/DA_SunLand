@@ -84,15 +84,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
       ),
       SpeedDialChild(
-        child: Icon(MdiIcons.accountMultipleCheck),
-        backgroundColor: colorAppbar,
-        label: 'Sản phẩm đã đăng'.toUpperCase(),
-        labelStyle: styleTextContentBlack,
-        onTap: () {
-          Navigator.pushNamed(context, ProductPostedScreen.id);
-        },
-      ),
-      SpeedDialChild(
         child: Icon(MdiIcons.domain),
         backgroundColor: colorAppbar,
         label: 'Giới thiệu'.toUpperCase(),
