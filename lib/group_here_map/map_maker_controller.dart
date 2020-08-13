@@ -69,8 +69,8 @@ class MapMarkerController {
         print(geoCoordinates_return);
         print('LongPress detected at: $geoCoordinates');
         showAnchoredMapMarkers(
-            geoCoordinates:
-                _hereMapController.viewToGeoCoordinates(touchPoint));
+            geoCoordinates: _hereMapController.viewToGeoCoordinates(touchPoint),
+            clear_full_map: true);
       }
 
 //      if (gestureState == GestureState.update) {
@@ -112,6 +112,7 @@ class MapMarkerController {
   void showAnchoredMapMarkers({
     GeoCoordinates geoCoordinates,
     bool internalupdateCoordinates = false,
+    bool clear_full_map = false,
   }) {
 //    GeoCoordinates geoCoordinates = _createRandomGeoCoordinatesInViewport();
 
@@ -119,6 +120,9 @@ class MapMarkerController {
     // The draw order is determined from what is first added to the map,
     // but since loading images is done async, we can make this explicit by setting
     // a draw order. High numbers are drawn on top of lower numbers.
+    if (clear_full_map == true) {
+      clearMap();
+    }
     _clearMapMarkerPlace();
     _addCircleMapMarker(geoCoordinates, 0);
 

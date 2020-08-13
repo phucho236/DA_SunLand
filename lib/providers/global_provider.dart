@@ -10,7 +10,7 @@ class GlobalData extends ChangeNotifier {
   String creat_at = "";
   String travelTimeHouse = "00";
   String travelTimeMinutes = "00";
-  String travelLength = "0.0";
+  String travelLength = "999";
   CoordinatesDoubleModel coordinatesModel =
       CoordinatesDoubleModel(latitude: 10.808820, longitude: 106.623436);
   Future<CoordinatesDoubleModel> updateCoordinatesDoubleModel(
