@@ -2,9 +2,10 @@ import 'package:flutter_core/api/api_http.dart';
 import 'package:flutter_core/api/api_model.dart';
 
 class HomePageController {
-  onGetListGetListProduct() async {
+  onGetListGetListProduct(int limit) async {
     var api = HttpApi();
-    List<String> listDocumentIDProduct = await onLoadPreviewProductScreen();
+    List<String> listDocumentIDProduct =
+        await onLoadPreviewProductScreen(limit);
     return await api.GetListProduct(
         listDocumentIDProduct: listDocumentIDProduct);
   }
@@ -19,9 +20,9 @@ class HomePageController {
   }
 
   // lấy list id các sản phẩm
-  onLoadPreviewProductScreen() async {
+  onLoadPreviewProductScreen(int limit) async {
     var api = HttpApi();
-    return await api.GetListIDProduct(censored: true);
+    return await api.GetListIDProductLimit(censored: true, limit: limit);
   }
 
   onGetListProductFilter(List<String> list_document_id_product) async {

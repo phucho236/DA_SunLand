@@ -773,6 +773,25 @@ class HttpApi {
     return listIDProduct;
   }
 
+  Future<List<String>> GetListIDProductLimit(
+      {bool censored = false, int limit}) async {
+    print("==========  Get list id sản phẩm ==========");
+    List<String> listIDProduct = [];
+    await firestoreInstance
+        .collection(PathDatabase.DetailProduct)
+        .where("censored", isEqualTo: censored)
+        .limit(limit)
+        .getDocuments()
+        .then((value) {
+      if (value != null) {
+        value.documents.forEach((_value) {
+          listIDProduct.add(_value["document_id_product"]);
+        });
+      }
+    });
+    return listIDProduct;
+  }
+
   Future<List<dynamic>> GetListItemLike({String document_id_custommer}) async {
     print("==========  Get list item like ==========");
     List<dynamic> listItemLikeModel = [];

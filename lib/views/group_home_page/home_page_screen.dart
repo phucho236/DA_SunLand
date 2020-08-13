@@ -30,6 +30,8 @@ class _HomePageScreenState extends State<HomePageScreen>
   List<dynamic> list_item_like = [];
   num type;
   int lenghList = 4;
+  int lenghListNow = 0;
+  bool listMAx = false;
   bool onfind = false;
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -55,16 +57,25 @@ class _HomePageScreenState extends State<HomePageScreen>
     }
   }
 
-  getListProduct() async {
+  getListProduct(lenghList) async {
     await getListItemLike();
-    List<ProductModel> _listIDProductTmp = [];
-    _listIDProductTmp = await homePageController.onGetListGetListProduct();
-    if (_listIDProductTmp.length > 0) {
-      if (mounted) {
+    if (listMAx == false) {
+      List<ProductModel> _listIDProductTmp = [];
+      _listIDProductTmp =
+          await homePageController.onGetListGetListProduct(lenghList);
+      if (lenghListNow == _listIDProductTmp.length) {
         setState(() {
-          listProduct = _listIDProductTmp;
-          isLoading = false;
+          listMAx = true;
         });
+      }
+      if (_listIDProductTmp.length > 0) {
+        if (mounted) {
+          setState(() {
+            lenghListNow = _listIDProductTmp.length;
+            listProduct = _listIDProductTmp;
+            isLoading = false;
+          });
+        }
       }
     }
   }
@@ -124,6 +135,7 @@ class _HomePageScreenState extends State<HomePageScreen>
     await Future.delayed(Duration(milliseconds: 1000));
     setState(() {
       lenghList = lenghList + 4;
+      getListProduct(lenghList);
     });
 
     if (mounted) _refreshController.loadComplete();
@@ -132,11 +144,11 @@ class _HomePageScreenState extends State<HomePageScreen>
   void onRefresh() async {
     //monitor fetch data from network
     await Future.delayed(Duration(milliseconds: 1000));
-    getListProduct();
 
     if (mounted)
       setState(() {
-        getListProduct();
+        listMAx = false;
+        getListProduct(lenghList);
         onfind = false;
       });
     _refreshController.refreshCompleted();
@@ -170,7 +182,7 @@ class _HomePageScreenState extends State<HomePageScreen>
       setState(() {
         isLoading = true;
       });
-      getListProduct();
+      getListProduct(lenghList);
     }
   }
 
@@ -335,7 +347,10 @@ class _HomePageScreenState extends State<HomePageScreen>
                   ),
                 ).then((value) {
                   if (value == true) {
-                    getListProduct();
+                    setState(() {
+                      listMAx = false;
+                    });
+                    getListProduct(lenghList);
                   }
                 });
               },
