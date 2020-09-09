@@ -4,7 +4,7 @@ import 'package:mailer/smtp_server.dart';
 class SendOTPController {
   Future<bool> SendOTP({String recipents_email, String otp}) async {
     String username = 'hophuc236@gmail.com';
-    String password = 'LIMITEDEDITION!236';
+    String password = '';
 
     final smtpServer = gmail(username, password);
     // Use the SmtpServer class to configure an SMTP server:
